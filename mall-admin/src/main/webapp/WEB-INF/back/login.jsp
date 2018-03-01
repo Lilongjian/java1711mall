@@ -78,14 +78,14 @@
 	}
 	//3.ajax提交用户名和密码，并且接受后台的返回的json的数值
     $.ajax({
-    	url:"${ctx}/manager/user/login.action",
+    	url:"${ctx}/user/login.action",
     	type:"POST",
     	dataType:"json",
     	data:$("#login-form").serialize(),
     	success:function(data){
     		/* if(data.status == util.SUCCESS){ */
     			if(data.code == util.SUCCESS){
-    			mylayer.successUrl(data.msg,"${ctx}/manager/index.action");
+    			mylayer.successUrl(data.msg,"${ctx}/index.action");
     		}else{
     			mylayer.errorMsg(data.msg);
     		}

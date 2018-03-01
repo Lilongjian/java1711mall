@@ -16,7 +16,7 @@ import com.situ.mall.core.entity.User;
 import com.situ.mall.core.service.IUserService;
 
 @Controller
-@RequestMapping("manager/user")
+@RequestMapping("/user")
 public class UserManagerController {
 	@Autowired
 	private IUserService userService;

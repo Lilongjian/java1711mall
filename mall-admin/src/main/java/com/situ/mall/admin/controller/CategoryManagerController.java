@@ -9,7 +9,7 @@ import com.situ.mall.common.response.ServerResponse;
 import com.situ.mall.core.service.ICategoryService;
 
 @Controller
-@RequestMapping("/manager/category")
+@RequestMapping("/category")
 public class CategoryManagerController {
      @Autowired
      private ICategoryService categoryService;

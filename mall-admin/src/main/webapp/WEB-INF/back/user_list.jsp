@@ -29,7 +29,7 @@
  		  
  		  table.render({
  		    elem: '#datagrid', //要渲染哪个表格
- 		    url:'${ctx}/manager/user/pageList.action', //异步数据接口
+ 		    url:'${ctx}/user/pageList.action', //异步数据接口
  		    cellMinWidth: 50, //列宽自动分配，全局定义常规单元格的最小宽度
  		    cols: [[
  		      {field:'id', title: 'ID', sort: true},
@@ -69,7 +69,7 @@
   		    	layer.confirm('确定要删除这' + data.length + '条数据吗？', function(index){
   			    	var ids = util.getSelectedIds(data);
   			    	$.ajax({
-  			    		url : '${ctx}/manager/user/deleteAll.action',
+  			    		url : '${ctx}/user/deleteAll.action',
   			    		data : {'ids' : ids},
   			    		dataType : 'json',
   			    		success : function(jsonData) {

@@ -125,7 +125,7 @@
 	  console.log(data.value);//得到被选中的值
 	  console.log(data.othis);//得到美化后的dom对象
 	  $.ajax({
-		  url:'${ctx}/manager/category/selectSecondCategory.action',
+		  url:'${ctx}/category/selectSecondCategory.action',
 		  data:'topCategoryId=' + data.value,
 		  dataType : 'json',
 		  type : 'POST',
@@ -150,7 +150,7 @@
 $(function() {
 	//加载一级分类
 	$.ajax({
-		url : '${ctx}/manager/category/selectTopCategory.action',
+		url : '${ctx}/category/selectTopCategory.action',
 		type : "POST",
 		dataType : "json",
 		success : function(jsonObj) {
@@ -179,7 +179,7 @@ $(function() {
 
 //加载二级分类
 $.ajax({
-		  url:'${ctx}/manager/category/selectSecondCategory.action',
+		  url:'${ctx}/category/selectSecondCategory.action',
 		  data:'topCategoryId=${parentCategoryId}',
 		  dataType : 'json',
 		  type : 'POST',
@@ -209,7 +209,7 @@ $.ajax({
 //图片上传
 function uploadPic(){
 	$('#form_add').ajaxSubmit({
-		url : '${ctx}/manager/upload/uploadPic.action',
+		url : '${ctx}/upload/uploadPic.action',
 		type : 'POST',
 		dataType : 'json',
 		success : function(jsonObj){
@@ -221,7 +221,7 @@ function uploadPic(){
 }
 function submitForm(){
 	$.ajax({
-		url : '${ctx}/manager/product/update.action',
+		url : '${ctx}/product/update.action',
 		data : $('#form_add').serialize(),
 		type : 'POST',
 		dataType : 'json',
@@ -249,7 +249,7 @@ KindEditor.ready(function(K) {
             //指定上传文件参数名称
             filePostName  : "pictureFile",
             //指定上传文件请求的url。
-            uploadJson : '${ctx}/manager/upload/multiPicUpload.action',
+            uploadJson : '${ctx}/upload/multiPicUpload.action',
             //上传类型，分别为image、flash、media、file
             dir : "image",
             afterBlur: function () { this.sync(); }

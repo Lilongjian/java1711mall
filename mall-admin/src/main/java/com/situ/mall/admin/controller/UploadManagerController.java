@@ -18,7 +18,7 @@ import com.situ.mall.common.response.util.JsonUtils;
 
 
 @Controller
-@RequestMapping("/manager/upload")
+@RequestMapping("/upload")
 public class UploadManagerController {
       
 	@RequestMapping(value="/uploadPic",method=RequestMethod.POST)
