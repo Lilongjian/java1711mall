@@ -63,7 +63,7 @@
                         </a>
                     </li>
                      <li>
-                        <a class="J_menuItem" href="${ctx}/user/getUserPage.action">
+                        <a class="J_menuItem" href="${ctx}/category/getCategoryPage.action">
                             <i class="fa fa-home"></i>
                             <span class="nav-label">分类列表</span>
                         </a>

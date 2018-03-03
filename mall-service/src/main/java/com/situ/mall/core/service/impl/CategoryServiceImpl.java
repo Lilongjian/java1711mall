@@ -5,8 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.situ.mall.common.response.ServerResponse;
 import com.situ.mall.core.entity.Category;
+import com.situ.mall.core.entity.User;
 import com.situ.mall.core.mapper.CategoryMapper;
 import com.situ.mall.core.service.ICategoryService;
 
@@ -39,6 +42,18 @@ public class CategoryServiceImpl implements ICategoryService{
 	@Override
 	public Integer selectParentCategoryId(Integer categoryId) {
 		return categoryMapper.selectParentCategoryId(categoryId);
+	}
+
+	@Override
+	public ServerResponse<List<Category>> pageList(Integer page, Integer limit, Category name) {
+		PageHelper.startPage(page, limit);
+ 		//数据data
+		System.out.println(name);
+ 		List<Category> list = categoryMapper.pageList(name);
+ 		//count
+ 		/*Integer count = (int) ((Page)list).getTotal();*/
+ 		Integer count = (int) ((Page) list).getTotal();
+ 		return ServerResponse.createSuccess("查询成功", count, list);
 	}
 
 }

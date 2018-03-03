@@ -133,4 +133,14 @@
   from category
   where id=#{categoryId}
   </select>
+    <select id="pageList" parameterType="category" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List"/>
+   from category
+   <where>
+      <if test="name != null">
+       and name like concat('%',#{name},'%')
+      </if>
+   </where>
+   </select>
 </mapper>
