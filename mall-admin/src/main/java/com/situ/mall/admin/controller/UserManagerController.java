@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -77,6 +78,17 @@ public class UserManagerController {
  	@ResponseBody
  	public ServerResponse add(User user){
  		return userService.add(user);
+ 	}
+	@RequestMapping("/getEditPage")
+ 	public String getEditPage(Integer id,Model model){
+ 		User user = userService.selectById(id);
+ 		model.addAttribute("user", user);
+ 		return "user_edit";
+ 	}
+	@RequestMapping("/update")
+ 	@ResponseBody
+ 	public ServerResponse update(User user){
+ 		return userService.update(user);
  	}
 	
 }

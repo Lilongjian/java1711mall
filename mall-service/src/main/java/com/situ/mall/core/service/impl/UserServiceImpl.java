@@ -67,5 +67,17 @@ public class UserServiceImpl implements IUserService{
 		}
 		return ServerResponse.createError("添加用户失败");
 	}
+	@Override
+	public User selectById(Integer id) {
+		return userMapper.selectByPrimaryKey(id);
+	}
+	@Override
+	public ServerResponse update(User user) {
+		int rowCount = userMapper.updateByPrimaryKeySelective(user);
+		if (rowCount > 0) {
+			return ServerResponse.createSuccess("更新用户成功");
+		}
+		return ServerResponse.createError("更新用户失败");
+	}
 
 }

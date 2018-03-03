@@ -17,4 +17,8 @@ public interface IUserService {
 
 	ServerResponse add(User user);
 
+	User selectById(Integer id);
+
+	ServerResponse update(User user);
+
 }
