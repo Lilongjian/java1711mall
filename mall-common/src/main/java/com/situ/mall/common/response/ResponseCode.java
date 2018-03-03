@@ -7,7 +7,7 @@ public enum ResponseCode {
 	ERROR(1,"ERROR"),
 	NEED_LOGIN(2,"NEED_LOGIN"),
 	ILLEGAL_PERMISSION(3,"ILLEGA_PERMISSION");
-	
+
 	private int code;
 	private String desc;
 	

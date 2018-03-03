@@ -159,8 +159,6 @@ $(function() {
 				var html = '<option value="">请选一级分类</option>';
 				var data = jsonObj.data;
 				for (var i = 0; i < data.length; i++) {
-					/* html += '<option value="'+data[i].id+'">'
-							+ data[i].name + '</option>'; */
 					if("${parentCategoryId}" == data[i].id){
 						html +='<option selected value="'+data[i].id+'">'
 						+data[i].name + '</option>';

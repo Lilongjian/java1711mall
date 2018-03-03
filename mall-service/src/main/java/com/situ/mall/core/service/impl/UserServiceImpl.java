@@ -42,5 +42,30 @@ public class UserServiceImpl implements IUserService{
  		Integer count = (int) ((Page) list).getTotal();
  		return ServerResponse.createSuccess("查询成功", count, list);
 	}
+	@Override
+	public ServerResponse deleteById(Integer id) {
+		int count = userMapper.deleteByPrimaryKey(id);
+		if (count > 0) {
+			return ServerResponse.createSuccess("删除成功");
+		}
+		return ServerResponse.createError("删除失败");
+	}
+	@Override
+	public ServerResponse deleteAll(String ids) {
+		String[] idsArray = ids.split(",");
+	    int count = userMapper.deleteAll(idsArray);
+	    if(count == idsArray.length){
+	    	return ServerResponse.createSuccess("批量删除成功");
+	    }
+		return ServerResponse.createError("批量删除失败");
+	}
+	@Override
+	public ServerResponse add(User user) {
+		int rowCount = userMapper.insert(user);
+		if (rowCount > 0) {
+			return ServerResponse.createSuccess("添加用户成功");
+		}
+		return ServerResponse.createError("添加用户失败");
+	}
 
 }

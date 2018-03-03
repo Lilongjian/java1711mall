@@ -133,28 +133,6 @@
 	  
   });
 });
-/* $(function(){
-  $.ajax({
-	  url:'${ctx}/manager/category/selectTopCategory.action',
-	  type:"POST",
-	  dataType:"json",
-	  success:function(jsonObj){
-		  console.log(jsonObj);
-		  
-		  if(jsonObj.code == util.SUCCESS){
-			  var html = '<option value = "">请选择一级分类</option>';
-			  var data = jsonObj.data;
-			  for(var i = 0; i < data.length; i++){
-				  html += '<option value="'+data[i].id+'">'
-				                  + data[i].name + '</option>';
-			  }
-			  $('#topCategory').html(html);
-		  }else{
-			  
-		  }
-	  }
-  });
-}); */ 
 $(function() {
 	//加载一级分类
 	$.ajax({

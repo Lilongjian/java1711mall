@@ -24,4 +24,6 @@ public interface UserMapper {
 	User selectLogin(@Param("username")String username, @Param("password")String password);
 
 	List<User> pageList(User username);
+
+	int deleteAll(String[] idsArray);
 }

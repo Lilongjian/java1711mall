@@ -16,13 +16,14 @@
    </div>
   <button class="layui-btn" data-type="search">搜索</button>
    <button class="layui-btn layui-btn-danger" data-type="deleteAll">批量删除</button>
+   <button class="layui-btn" data-type="add">添加用户</button>
   </div>
- 	<table class="layui-hide" id="datagrid"></table>
- 	 <script type="text/html" id="toolbar">
-   		<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
-  		<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-  		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
- 	</script>
+ 	<table class="layui-hide" id="datagrid" lay-filter="datagrid"></table>
+ 	<script type="text/html" id="toolbar">
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
  	<script>
  		layui.use('table', function(){
  		  var table = layui.table;
@@ -32,6 +33,7 @@
  		    url:'${ctx}/user/pageList.action', //异步数据接口
  		    cellMinWidth: 50, //列宽自动分配，全局定义常规单元格的最小宽度
  		    cols: [[
+ 		      {type:'checkbox'},
  		      {field:'id', title: 'ID', sort: true},
  		      {field:'username', title: '用户名', sort: true},
  		      {field:'password', title: '密码', sort: true},
@@ -84,11 +86,53 @@
   	    	});
    		    },
    		    
+   		 add: function(){
+   			 location.href = "${ctx}/user/getAddPage.action"
+		    },
+   		    
  			  };
-		 		 $('.demoTable .layui-btn').on('click', function(){
-		 		    var type = $(this).data('type');
-		 		    active[type] ? active[type].call(this) : '';
-		 		  });
+ 		
+ 		  //监听工具条
+		  table.on('tool(datagrid)', function(obj){ //注：tool是工具条事件名，datagrid是table原始容器的属性 lay-filter="对应的值"
+		    var data = obj.data; //获得当前行数据
+		    var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+		    var tr = obj.tr; //获得当前行 tr 的DOM对象
+		   
+		    if(layEvent === 'detail'){ //查看
+		    	layer.msg("查看：" + data.id);
+		    } else if(layEvent === 'del'){ //删除
+		    	layer.confirm('真的删除行么', function(index){
+		       		$.ajax({
+		       			url : '${ctx}/user/deleteById.action',
+		       			data : {'id' : data.id},
+		       			dataType : 'json',
+		       			success : function(jsonData) {
+		       				if(jsonData.code == util.SUCCESS) {
+		       					mylayer.success(jsonData.msg);
+		       					active.search();
+		       				} else {
+		       					mylayer.errorMsg(jsonData.msg);
+		       				}
+		       				layer.close(index);
+		       			}
+		       		});
+		      	});
+		    } else if(layEvent === 'edit'){ //编辑
+		    	layer.msg("查看：" + data.id);
+		        layer.open({
+		        	type : 2,
+		        	title : '商品编辑',
+		        	area :['1000px','650px'],
+		        	offset : '10px',//只定义top坐标，水平保持居中
+		        	content : '${ctx}/user/getEditPage.action?id=' + data.id
+		        });
+		    }
+		  });
+ 		  
+ 		     $('.demoTable .layui-btn').on('click', function(){
+ 		    var type = $(this).data('type');
+ 		    active[type] ? active[type].call(this) : '';
+ 		  }); 
  		});
  	</script>
  </body>

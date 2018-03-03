@@ -108,7 +108,7 @@
    			 location.href = "${ctx}/product/getAddPage.action"
 		    },
 	 		  };
- 		//监听工具条
+ 		  //监听工具条
  				  table.on('tool(datagrid)', function(obj){ //注：tool是工具条事件名，datagrid是table原始容器的属性 lay-filter="对应的值"
  				    var data = obj.data; //获得当前行数据
  				    var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
@@ -147,7 +147,7 @@
  		$('.demoTable .layui-btn').on('click', function(){
  			 	  var type = $(this).data('type');
  			 	  active[type] ? active[type].call(this) : '';
- 			  		  });
+ 			  		  }); 
  		});
  	</script>
  </body>

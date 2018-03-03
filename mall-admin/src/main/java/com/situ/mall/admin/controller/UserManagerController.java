@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.situ.mall.common.response.ServerResponse;
 import com.situ.mall.core.constant.Const;
+import com.situ.mall.core.entity.Product;
 import com.situ.mall.core.entity.User;
 import com.situ.mall.core.service.IUserService;
 
@@ -37,6 +38,12 @@ public class UserManagerController {
 	 	public String getUserPage() {
 	 		return "user_list";
 	 	}
+	 	
+	 	@RequestMapping("/deleteById")
+		@ResponseBody
+		public ServerResponse deleteById(Integer id){
+			return userService.deleteById(id);
+		}
 	 
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	@ResponseBody
@@ -56,5 +63,20 @@ public class UserManagerController {
 		}
 		return response;
 	}
+	@RequestMapping("/deleteAll")
+	@ResponseBody
+	public ServerResponse deleteAll(String ids){
+		return userService.deleteAll(ids);
+	}
+	
+	@RequestMapping("/getAddPage")
+ 	public String getAddPage() {
+ 		return "user_add";
+ 	}
+	@RequestMapping("/add")
+ 	@ResponseBody
+ 	public ServerResponse add(User user){
+ 		return userService.add(user);
+ 	}
 	
 }

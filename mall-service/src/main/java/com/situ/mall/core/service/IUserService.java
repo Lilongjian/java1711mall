@@ -11,4 +11,10 @@ public interface IUserService {
 
 	ServerResponse<List<User>> pageList(Integer page, Integer limit, User username);
 
+	ServerResponse deleteById(Integer id);
+
+	ServerResponse deleteAll(String ids);
+
+	ServerResponse add(User user);
+
 }
