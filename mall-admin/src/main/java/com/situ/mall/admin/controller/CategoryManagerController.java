@@ -39,6 +39,24 @@ public class CategoryManagerController {
 	 	public ServerResponse<List<Category>> pageList(Integer page, Integer limit,Category name) {
 	 		return categoryService.pageList(page, limit,name);
 	 	}
+     @RequestMapping("/deleteById")
+		@ResponseBody
+		public ServerResponse deleteById(Integer id){
+			return categoryService.deleteById(id);
+		}
+     @RequestMapping("/getAddOnePage")
+  	public String getAddOnePage() {
+  		return "category_addone";
+  	}
+     @RequestMapping("/getAddTwoPage")
+   	public String getAddTwoPage() {
+   		return "category_addtwo";
+   	}
+     @RequestMapping("/add")
+     @ResponseBody
+  	public ServerResponse add(Category category){
+  		return categoryService.add(category);
+  	}
 	
 	 	
 	 

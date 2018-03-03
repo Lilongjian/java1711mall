@@ -15,4 +15,8 @@ public interface ICategoryService {
 
 	ServerResponse<List<Category>> pageList(Integer page, Integer limit, Category name);
 
+	ServerResponse deleteById(Integer id);
+
+	ServerResponse add(Category category);
+
 }

@@ -10,13 +10,23 @@
  </head>
  <body>
     <div class="demoTable">
+    <!-- <form id = "form_add" class="layui-form layui-form-pane" action="" method="post" enctype="multipart/form-data"> -->
  	  名称：
  	  <div class="layui-inline">
  	    <input class="layui-input" name="id" id="searchName" autocomplete="off">
  	  </div>
  	   <button class="layui-btn" data-type="search">搜索</button>
  	   <button class="layui-btn layui-btn-danger" data-type="deleteAll">批量删除</button>
- 	   <button class="layui-btn" data-type="add">添加分类</button>
+ 	   &nbsp;
+ 	    <div class="layui-input-inline">
+ 	   <select name="quiz1" id="Category" lay-filter="topCategoryFilter">
+	        <option value="">请选择分类</option>
+	        <option value="one">一级分类</option>
+	        <option value="two">二级分类</option>
+	    </select>
+	     </div>
+ 	    <button class="layui-btn" data-type="add">添加商品</button>
+ 	  <!--  </form> -->
  	 </div>
  	 <table class="layui-hide" id="datagrid" lay-filter="datagrid"></table>
  	 <script type="text/html" id="toolbar">
@@ -68,7 +78,7 @@
   		    	layer.confirm('确定要删除这' + data.length + '条数据吗？', function(index){
   			    	var ids = util.getSelectedIds(data);
   			    	$.ajax({
-  			    		url : '${ctx}/product/deleteAll.action',
+  			    		url : '${ctx}/category/deleteAll.action',
   			    		data : {'ids' : ids},
   			    		dataType : 'json',
   			    		success : function(jsonData) {
@@ -83,8 +93,16 @@
   	    	});
    		    },
    		 add: function(){
-   			 location.href = "${ctx}/product/getAddPage.action"
+   			  /* location.href = "${ctx}/category/getAddPage.action"  */
+   		     if($('#Category').val()=="one"){   
+   		 		 location.href = "${ctx}/category/getAddOnePage.action"
+   			}else if($('#Category').val()=="two"){   
+				location.href = "${ctx}/category/getAddTwoPage.action"
+			}else{
+				mylayer.errorMsg("请先选择");
+			}  
 		    },
+		    
 	 		  };
  		  //监听工具条
  				  table.on('tool(datagrid)', function(obj){ //注：tool是工具条事件名，datagrid是table原始容器的属性 lay-filter="对应的值"
@@ -97,7 +115,7 @@
  				    } else if(layEvent === 'del'){ //删除
  				    	layer.confirm('真的删除行么', function(index){
  				       		$.ajax({
- 				       			url : '${ctx}/product/deleteById.action',
+ 				       			url : '${ctx}/category/deleteById.action',
  				       			data : {'id' : data.id},
  				       			dataType : 'json',
  				       			success : function(jsonData) {
@@ -118,7 +136,7 @@
  				        	title : '商品编辑',
  				        	area :['1000px','650px'],
  				        	offset : '10px',//只定义top坐标，水平保持居中
- 				        	content : '${ctx}/product/getEditPage.action?id=' + data.id
+ 				        	content : '${ctx}/category/getEditPage.action?id=' + data.id
  				        });
  				    }
  				  });

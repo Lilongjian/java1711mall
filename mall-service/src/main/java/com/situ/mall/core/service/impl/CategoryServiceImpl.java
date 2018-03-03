@@ -56,4 +56,23 @@ public class CategoryServiceImpl implements ICategoryService{
  		return ServerResponse.createSuccess("查询成功", count, list);
 	}
 
+	@Override
+	public ServerResponse deleteById(Integer id) {
+		 int count = categoryMapper.deleteByPrimaryKey(id);
+		 if (count > 0) {
+			return ServerResponse.createSuccess("删除成功");
+		}
+		 return ServerResponse.createError("删除失败");
+	}
+
+	@Override
+	public ServerResponse add(Category category) {
+		int rowCount = categoryMapper.insert(category);
+		if (rowCount > 0) {
+			return ServerResponse.createSuccess("添加用户成功");
+		}else {
+			return ServerResponse.createError("添加用户失败");
+		}
+	}
+
 }
