@@ -29,9 +29,12 @@
     insert into category (id, parent_id, name, 
       status, sort_order, create_time, 
       update_time)
-    values (#{id,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{status,jdbcType=BIT}, #{sortOrder,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+    values (#{id,jdbcType=INTEGER},#{parentId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{status,jdbcType=BIT}, #{sortOrder,jdbcType=INTEGER},
+       <!-- #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP} -->
+      now(),now()
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.situ.mall.core.entity.Category" >
     insert into category

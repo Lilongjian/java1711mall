@@ -25,7 +25,7 @@
 	        <option value="two">二级分类</option>
 	    </select>
 	     </div>
- 	    <button class="layui-btn" data-type="add">添加商品</button>
+ 	    <button class="layui-btn" data-type="add">添加</button>
  	  <!--  </form> -->
  	 </div>
  	 <table class="layui-hide" id="datagrid" lay-filter="datagrid"></table>

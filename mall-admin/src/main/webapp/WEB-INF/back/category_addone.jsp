@@ -26,6 +26,13 @@
 				</div>
 			</div>
 			<div class="layui-form-item">
+				<label class="layui-form-label">parentId</label>
+				<div class="layui-input-block">
+					<input type="text" name="parentId" autocomplete="off"
+						placeholder="请输入上一级的分类号" value="0" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
 				<label class="layui-form-label">状态</label>
 				<div class="layui-input-block">
 					<input type="text" name="status" autocomplete="off"
@@ -52,7 +59,7 @@ function submitForm(){
 		success : function(jsonObj){
 			if(jsonObj.code == util.SUCCESS){
 				/* mylayer.success(jsonObj.msg); */
-				mylayer.confirm("添加成功，是够跳转到分类列表界面？", "${ctx}/category/getCategoryPage.action");
+				mylayer.confirm("添加成功，是否跳转到分类列表界面？", "${ctx}/category/getCategoryPage.action");
 			}else{
 				mylayer.errorMsg(jsonObj.msg);
 			}
