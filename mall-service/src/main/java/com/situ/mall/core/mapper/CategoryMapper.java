@@ -26,4 +26,6 @@ public interface CategoryMapper {
 	Integer selectParentCategoryId(Integer categoryId);
 
 	List<Category> pageList(Category name);
+
+	int deleteAll(String[] idsArray);
 }

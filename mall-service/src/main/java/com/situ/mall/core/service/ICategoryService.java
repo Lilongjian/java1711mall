@@ -19,4 +19,8 @@ public interface ICategoryService {
 
 	ServerResponse add(Category category);
 
+	ServerResponse deleteAll(String ids);
+
+	Category selectById(Integer id);
+
 }

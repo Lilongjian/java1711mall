@@ -75,4 +75,19 @@ public class CategoryServiceImpl implements ICategoryService{
 		}
 	}
 
+	@Override
+	public ServerResponse deleteAll(String ids) {
+		String[] idsArray = ids.split(",");
+	    int count = categoryMapper.deleteAll(idsArray);
+	    if(count == idsArray.length){
+	    	return ServerResponse.createSuccess("批量删除成功");
+	    }
+		return ServerResponse.createError("批量删除失败");
+	}
+
+	@Override
+	public Category selectById(Integer id) {
+		return categoryMapper.selectByPrimaryKey(id);
+	}
+
 }
