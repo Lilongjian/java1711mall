@@ -65,5 +65,9 @@ public class ProductServiceImpl implements IProductService{
 		}
 		return ServerResponse.createError("更新商品失败");
 	}
+	@Override
+	public List<Product> selectByIdInfo(Integer categoryId) {
+		return productMapper.selectByPrimaryCategoryId(categoryId);
+	}
 
 }
