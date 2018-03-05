@@ -28,4 +28,6 @@ public interface CategoryMapper {
 	List<Category> pageList(Category name);
 
 	int deleteAll(String[] idsArray);
+
+	List<Category> selectAll();
 }

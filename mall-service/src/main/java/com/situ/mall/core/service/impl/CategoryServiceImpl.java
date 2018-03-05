@@ -90,4 +90,15 @@ public class CategoryServiceImpl implements ICategoryService{
 		return categoryMapper.selectByPrimaryKey(id);
 	}
 
+	@Override
+	public List<Category> selectCategory() {
+		List<Category> list = categoryMapper.selectTopCategory();
+		return list;
+	}
+
+	@Override
+	public List<Category> selectAll() {
+		return categoryMapper.selectAll();
+	}
+
 }

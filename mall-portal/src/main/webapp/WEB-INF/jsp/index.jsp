@@ -21,7 +21,7 @@
 				</div>
 				<div class="right">
 					<ul>
-						<li><a class="login" href="login.html" target="_blank">请登录</a></li>
+						<li><a class="login" href="login.shtml" target="_blank">请登录</a></li>
 						<li><a href="register.html" target="_blank">快速注册</a></li>
 						<li><a class="collect" href="">我的收藏</a></li>
 						<li><a class="indent" href="">我的订单</a></li>
@@ -111,15 +111,21 @@
 			<img class="banner"  src="${ctx}/static/front/img/tu8.png"/>
 			<div class="banner_center">
 				<div class="nav_left">
-					<span>
-						女装
+				 <c:forEach items="${category}" var="topCategory">
+				 <input type="hidden" id="mainImage" name="mainImage" value="${topCategory.parentId}"/>
+				 <p>
+					<span id="top" lay-filter="topCategoryFilter">
+					<%-- ${topCategory.name} --%>
+					衣服
 					</span>
-					<p>
-						<a href="">春上新</a>
-						<a href="">套装</a>
-						<a href="">休闲卫衣</a>
 					</p>
-					<span>
+					<p name="categoryId" id="secondCategory" value="${topCategory.id}">
+					<a href="">春上新</a>
+					<a href="">套装</a>
+					<a href="">休闲卫衣</a>
+					</p>
+					</c:forEach>
+					<!-- <span>
 						数码
 					</span>
 					<p>
@@ -214,7 +220,7 @@
 						<a href="">小零食</a>
 						<a href="">肉食</a>
 						<a href="">休闲食品</a>
-					</p>
+					</p> -->
 				</div>
 				<div class="nav_right">
 					<div class="nav_top">
@@ -730,6 +736,7 @@
 			京公网安备 110101020011226|京ICP证111033号|食品流通许可证 SP1101051110165515（1-1）|营业执照
 		</div>
 		<script type="text/javascript">
+		console.log($('#mainImage').val());
 			var m = 0;
 			$(".banner_box .banner").hide().eq(0).show();
 			function changeImg(){
@@ -771,6 +778,29 @@
 					$(".circle li").removeClass("current").eq(n).addClass("current");
 				}
 			)*/
+			//Demo
+	 	/* 	$(function() {
+				  $.ajax({
+					  url:'${ctx}/selectSecondCategory.shtml',
+					  data:'topCategoryId=' + $('#topCategory').val(),
+					  dataType : 'json',
+					  type : 'POST',
+					  success : function(jsonObj){
+						  if(jsonObj.code == util.SUCCESS){
+							  var html = '';
+							  var data = jsonObj.data;
+							  for(var i = 0; i < data.length; i++){
+								                   html += '<a href="">'+data[i].name+'</a>';
+							  }
+							  $('#secondCategory').html(html);
+							  form.render('select');//刷新select选择框渲染，不然不显示
+						  }else{
+							  mylayer.errorMsg(jsonObj.msg);
+						  }
+					  }
+				  });
+			}); */ 
+				  
 		</script>
 	</body>
 

@@ -23,4 +23,8 @@ public interface ICategoryService {
 
 	Category selectById(Integer id);
 
+	List<Category> selectCategory();
+
+	List<Category> selectAll();
+
 }

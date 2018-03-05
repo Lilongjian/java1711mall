@@ -67,7 +67,7 @@
 				<label class="layui-form-label">角色</label>
 				<div class="layui-input-block">
 					<input type="text" name="role" autocomplete="off" value="${user.role }"
-						placeholder="请输入角色" class="layui-input">
+						placeholder="请输入角色" class="layui-input"> 
 				</div>
 			</div>
 
