@@ -112,115 +112,17 @@
 			<div class="banner_center">
 				<div class="nav_left">
 				 <c:forEach items="${category}" var="topCategory">
-				 <input type="hidden" id="mainImage" name="mainImage" value="${topCategory.parentId}"/>
-				 <p>
 					<span id="top" lay-filter="topCategoryFilter">
-					<%-- ${topCategory.name} --%>
-					衣服
+					${topCategory.name}
 					</span>
-					</p>
-					<p name="categoryId" id="secondCategory" value="${topCategory.id}">
-					<a href="">春上新</a>
-					<a href="">套装</a>
-					<a href="">休闲卫衣</a>
-					</p>
+					<br><br>
+					<c:forEach items="${categorytwo}" var="twoCategory">
+					<c:if test="${twoCategory.parentId==topCategory.id}">
+					   <a href="${ctx}/product/getProductListPage.shtml?categoryId=${twoCategory.id}">${twoCategory.name}</a> 
+					</c:if>
 					</c:forEach>
-					<!-- <span>
-						数码
-					</span>
-					<p>
-						<a href="">手机</a>
-						<a href="">笔记本</a>
-						<a href="">平板电脑</a>
-					</p>
-					<span>
-						内衣
-					</span>
-					<p>
-						<a href="">热销榜</a>
-						<a href="">内裤</a>
-						<a href="">睡衣套装</a>
-					</p>
-					<span>
-						图书
-					</span>
-					<p>
-						<a href="">童话书</a>
-						<a href="">哲理书</a>
-						<a href="">心灵鸡汤</a>
-					</p>
-					<span>
-						女鞋
-					</span>
-					<p>
-						<a href="">单鞋</a>
-						<a href="">运动鞋</a>
-						<a href="">小白鞋</a>
-					</p>
-					<span>
-						电器
-					</span>
-					<p>
-						<a href="">小家电</a>
-						<a href="">大家电</a>
-						<a href="">厨房电器</a>
-					</p>
-					<span>
-						包包
-					</span>
-					<p>
-						<a href="">单肩包</a>
-						<a href="">女包</a>
-						<a href="">男包</a>
-					</p>
-					<span>
-						运动
-					</span>
-					<p>
-						<a href="">运动衣</a>
-						<a href="">运动鞋</a>
-						<a href="">人气套装</a>
-					</p>
-					<span>
-						美妆
-					</span>
-					<p>
-						<a href="">护肤品</a>
-						<a href="">面膜</a>
-						<a href="">春季防晒</a>
-					</p>
-					<span>
-						配饰
-					</span>
-					<p>
-						<a href="">手表</a>
-						<a href="">墨镜</a>
-						<a href="">耳环新品</a>
-					</p>
-					<span>
-						家居
-					</span>
-					<p>
-						<a href="">新品</a>
-						<a href="">四季套</a>
-						<a href="">小家具</a>
-					</p>
-					<span>
-						母婴
-					</span>
-					<p>
-						<a href="">孕妇装</a>
-						<a href="">童装</a>
-						<a href="">初春新品</a>
-					</p>
-					<span>
-						食品
-					</span>
-					<p>
-						<a href="">小零食</a>
-						<a href="">肉食</a>
-						<a href="">休闲食品</a>
-					</p> -->
+					<br><br>
+					</c:forEach>
 				</div>
 				<div class="nav_right">
 					<div class="nav_top">
@@ -736,7 +638,6 @@
 			京公网安备 110101020011226|京ICP证111033号|食品流通许可证 SP1101051110165515（1-1）|营业执照
 		</div>
 		<script type="text/javascript">
-		console.log($('#mainImage').val());
 			var m = 0;
 			$(".banner_box .banner").hide().eq(0).show();
 			function changeImg(){

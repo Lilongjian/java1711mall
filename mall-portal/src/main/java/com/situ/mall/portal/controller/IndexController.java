@@ -18,17 +18,14 @@ public class IndexController {
     private ICategoryService categoryService;
 	@RequestMapping("/index")
 	public String index(Model model){
-		/*List<Category> category = categoryService.selectCategory();*/
+		List<Category> category = categoryService.selectCategory();
 		//category.get(1).getName();
-		/*model.addAttribute("category", category);
-		for (Category category2 : category) {
+		model.addAttribute("category", category);
+		/*for (Category category2 : category) {
 			System.out.println(category2.getId());
 		}*/
-		List<Category> category = categoryService.selectAll();
-		model.addAttribute("category", category);
-		for (Category category2 : category) {
-			System.out.println(category2);
-		}
+		List<Category> categorytwo = categoryService.selectAll();
+		model.addAttribute("categorytwo", categorytwo);
 		return "index";
 	}
 	@RequestMapping("/selectSecondCategory")
