@@ -65,7 +65,7 @@
 		<ul>
 		    <c:forEach items="${products}" var="products">
 			<li>
-			<a href="${ctx}/product/getProductDetail.shtml">
+			<a href="${ctx}/product/getProductDetail.shtml?productId=${products.id}">
 			<img src="/pic/${products.mainImage}" class="productimg"/>
 			</a>
 			 <c:if test="${fn:length(products.name)>15}">

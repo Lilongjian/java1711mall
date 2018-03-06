@@ -593,6 +593,7 @@ input {
 	width: 20px;
 	height: 26px;
 	float: left;
+	clear: left;
 	border: 1px solid #CCCCCC;
 }
 
@@ -600,7 +601,6 @@ input {
 	width: 20px;
 	height: 26px;
 	float: left;
-	clear: left;
 	border: 1px solid #CCCCCC;
 }
 

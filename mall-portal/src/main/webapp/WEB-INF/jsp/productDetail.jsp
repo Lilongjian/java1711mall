@@ -6,8 +6,37 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title>华为畅享6S</title>
+		<title>${product.name}</title>
 		<link rel="stylesheet" type="text/css" href="${ctx}/static/front/css/detail_style.css" />
+		<script type="text/javascript">
+		$(function(){
+			 /*  $("#add").click(function(){
+	                var value=parseInt($('#amount').val())+1;
+	                $('#amount').val(value);
+	            }),
+	              $("#substract").click(function(){
+                var num = $("#amount").val()
+                if(num>0){
+                    $("#amount").val(num-1);
+                }
+
+            }) */
+            $("#add").click(function(){
+            	var num = $('#amount').val();
+            	var stock = ${product.stock}
+            	if(num < stock){
+            		$("#amount").val(parseInt(num)+1);
+            	}
+            }),
+            $("#substract").click(function(){
+                var num = $("#amount").val()
+                if(num>0){
+                    $("#amount").val(num-1);
+                }
+            })
+
+		})
+		</script>
 	</head>
 
 	<body>
@@ -134,25 +163,21 @@
 			<div class="left">
 				<ul>
 					<li class="banner_center_left_top">
-						<img src="${ctx}/static/front/img/sm1.png" />
+						<!-- <img src="${ctx}/static/front/img/sm1.png" /> -->
+						<img src="/pic/${product.mainImage}" width="300" height="280"/>
 					</li>
 					<li class="banner_center_left_center">
 						<ul>
 							<li class="left_right_nav">
 								<img src="${ctx}/static/front/img/left.png" />
 							</li>
+							<c:set var="subImages" value="${fn:split(product.subImages,',')}"/>
+				           <c:forEach items="${subImages}" var="subImage">
+				                 <%--  <img src="/pic/${subImage}" width="80" height="50"> --%>
 							<li class="small_shop">
-								<img src="${ctx}/static/front/img/112.png" />
+								<img src="/pic/${subImage}" />
 							</li>
-							<li class="small_shop">
-								<img src="${ctx}/static/front/img/113.png" />
-							</li>
-							<li class="small_shop">
-								<img src="${ctx}/static/front/img/116.png" />
-							</li>
-							<li class="small_shop">
-								<img src="${ctx}/static/front/img/126.png" />
-							</li>
+							 </c:forEach>
 							<li class="left_right_nav">
 								<img src="${ctx}/static/front/img/right.png" />
 							</li>
@@ -169,10 +194,11 @@
 				<ul>
 					<li class="right_1">
 						<span class="title">	
-							华为&nbsp;畅享6S&nbsp;金色&nbsp;移动联通电信4G手机&nbsp;双卡双待
+							<!-- 华为&nbsp;畅享6S&nbsp;金色&nbsp;移动联通电信4G手机&nbsp;双卡双待 -->
+							${product.name}
 						</span><br />
 						<span class="next_title">
-							骁龙芯片！金属机身！享看又享玩！付款后7天内发货
+							${product.subtitle}
 						</span>
 					</li>
 					<li class="right_2">
@@ -194,7 +220,8 @@
 									促&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;销&nbsp;&nbsp;&nbsp;&nbsp;
 								</span>
 								<span>
-									¥ 1499.00&nbsp;&nbsp;
+									<!-- ¥ 1499.00&nbsp;&nbsp; -->
+									${product.price }
 								</span>
 								<span>
 									<del>¥ 1999</del>
@@ -294,14 +321,17 @@
 						<span class="right_txt">
 							数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;量&nbsp;&nbsp;&nbsp;&nbsp;
 						</span>
-						<input class="right_bottom_text" type="text" value="1" />
+						<input class="right_bottom_text" id="amount" type="text" value="1" />
 						<ul class="right_bottom_btn">
 							<li>
-								<input class="right_bottom_substract" type="button" value="-" />
-								<input class="right_bottom_add" type="button" value="+" />
+							    <input class="right_bottom_add" type="button" value="+" id="add"/>
+								<input class="right_bottom_substract" type="button" value="-" id="substract"/>
 							</li>
 						</ul>
-						<input class="right_bottom_addCar" type="button" value="加入购物车" />
+						<span class="right_txt" >
+						&nbsp;库存:${product.stock}
+						</span>
+						<input class="right_bottom_addCar" type="button" value="加入购物车" onclick="addCart()"/>
 						<span class="right_txt_bottom">
 							温馨提示&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;·支持7天无理由退货
 						</span>
@@ -697,7 +727,8 @@
 			<!--=====================-->
 			<div class="right_big">
 				<div class="big_img">
-					<img src="${ctx}/static/front/img/tu.png" />
+					<%-- <img src="${ctx}/static/front/img/tu.png" /> --%>
+					${product.detail}
 				</div>
 				<div class="right_big_bottom">
 					<ul class="right_big_bottom_ul">
@@ -922,5 +953,9 @@
 			COPYRIGHT 2010-2017 北京创锐文化传媒有限公司 JUMEI.COM 保留一切权利. 客服热线：400-123-888888<br /> 京公网安备 110101020011226|京ICP证111033号|食品流通许可证 SP1101051110165515（1-1）|营业执照
 		</div>
 	</body>
-
+    <script type="text/javascript">
+    function addCart(){
+    	  window.location.href="${ctx}/cart/getCartPage.shtml?productId=${product.id}&amount="+$("#amount").val();
+    }
+    </script>
 </html>

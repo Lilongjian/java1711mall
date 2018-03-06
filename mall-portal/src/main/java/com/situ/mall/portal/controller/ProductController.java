@@ -23,7 +23,9 @@ public class ProductController {
 		return "productsListInfo";
 	}
 	@RequestMapping("/getProductDetail")
-	public String productDetail(){
+	public String productDetail(Integer productId,Model model){
+		Product product = productService.selectById(productId);
+		model.addAttribute("product", product);
 		return "productDetail";
 	}
 
