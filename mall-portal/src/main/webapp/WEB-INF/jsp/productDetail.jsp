@@ -954,8 +954,25 @@
 		</div>
 	</body>
     <script type="text/javascript">
+    layui.use(['layer'],function(){
+    	var layer = layui.layer;
+    	layer.msg('Hello');
+    })
     function addCart(){
-    	  window.location.href="${ctx}/cart/getCartPage.shtml?productId=${product.id}&amount="+$("#amount").val();
+      window.location.href="${ctx}/cart/addCart.shtml?productId=${product.id}&amount="+$("#amount").val(); 
+       /*  $.ajax({
+        	url:'${ctx}/cart/addCart.shtml',
+        	data:{'productId':'${product.id}','amount':$("#amount").val()},
+        	type:'POST',
+        	dataType:'json',
+        	success:function(jsonObj){
+        		if(jsonObj.code == util.SUCCESS){
+        			mylayer.successUrl(jsonObj.msg,'${ctx}/cart/getCartPage.shtml');
+        		}else{
+        			mylayer.errorMsg(jsonObj.msg);
+        		}
+        	}
+        }); */
     }
     </script>
 </html>

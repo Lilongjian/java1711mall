@@ -83,7 +83,6 @@
     	dataType:"json",
     	data:$("#login-form").serialize(),
     	success:function(data){
-    		/* if(data.status == util.SUCCESS){ */
     			if(data.code == util.SUCCESS){
     			mylayer.successUrl(data.msg,"${ctx}/index.action");
     		}else{
