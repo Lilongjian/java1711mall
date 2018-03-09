@@ -82,11 +82,11 @@
 					<li style="margin-left: 58px;margin-right: 36px;">操作</li>
 				</ul>
 			</div>
-			<div class="title_bottom">
+			<%-- <div class="title_bottom">
 			<input type="checkbox" style="color: #666666;margin: 23px 11px 10px 22px;" />
 			<img src="${ctx}/static/front/img/156.png" style="margin: 0px 142px 0px 11px; " />
 			<img src="${ctx}/static/front/img/157.png" style="margin-left: 142px; " />
-		</div>
+		</div> --%>
 		</div>
 		
 		<c:forEach items="${cartVo.cartItemVos}" var="cartItemVo">
@@ -106,8 +106,15 @@
 				</p>
 			</div>
 			<div class="car_2_bottom">
-				<div class="car_con_1">
-					<input type="checkbox" />
+				<!-- <div class="car_con_1">
+					<input type="checkbox" /> -->
+				<div class="car_con_1" onclick="selectProductStatus(${cartItemVo.product.id})">
+					<c:if test="${cartItemVo.isChecked==1}">
+						<input checked id="checkbox${cartItemVo.product.id}" name="selectCheckbox" type="checkbox" />
+					</c:if>
+					<c:if test="${cartItemVo.isChecked==0}">
+						<input id="checkbox${cartItemVo.product.id}" name="selectCheckbox" type="checkbox" />
+					</c:if>
 				</div>
 				<div class="car_con_2">
 					<img src="${ctx}/static/front/img/159.png" />
@@ -138,13 +145,14 @@
 						<%-- onclick="add(${cartItemVo.product.id})" --%>
 					</li>
 					<li class="money">
-						<span style="color: #F41443;"  id="totalPrice${cartItemVo.product.id}">
+						<%-- <span style="color: #F41443;"  id="totalPrice${cartItemVo.product.id}"> --%>
+						<span style="color: #F41443;" id="cartItemTotalPrice${cartItemVo.product.id}">
 						${cartItemVo.product.price*cartItemVo.amount}
 							<!-- ¥ 1499.00 -->
 						</span>
 					</li>
 					<li class="delete">
-						<img src="${ctx}/static/front/img/166.png" />
+						<img onclick="delCartItemById(${cartItemVo.product.id})" src="${ctx}/static/front/img/166.png" />
 					</li>
 				</ul>
 			</div>
@@ -158,7 +166,7 @@
 						<input type="checkbox" />
 					</li>
 					<li style="margin-left: 8px;margin-right: 265px;">全选</li>
-					<li style="margin-left: 265px;margin-right: 18px;">总金额（已免运费）：<span style="color: #F41443;">¥7175</span></li>
+					<li style="margin-left: 265px;margin-right: 18px;">总金额（已免运费）：<span id="totalPrice" style="color: #F41443;">¥0</span></li>
 					<li class="total_right"><a href="">立即结算</a></li>
 				</ul>
 			</div>
@@ -345,6 +353,9 @@
 		layui.use(['layer'], function(){
 		  var layer = layui.layer;
 		});
+		 $(function(){
+						refreshTotalPrice();
+					});
 		/* function add(productId){
 			var num = $('#num'+productId).val();
 			 $.ajax({
@@ -382,13 +393,60 @@
 									//updateTotalPrice
 									var price = $('#price'+productId).attr('price');
 									var totalPrice = num * price;
-									$('#totalPrice'+productId).html(totalPrice);
+									$('#cartItemTotalPrice'+productId).html(totalPrice);
 								} else {
 									mylayer.errorMsg(jsonObj.msg);
 								}
 							}
 						});
 					}
+		function selectProductStatus(productId){
+			 var isChecked = $('#checkbox' + productId).prop('checked');
+			 $.ajax({
+				 url:'${ctx}/cart/updateCart.shtml',
+				 data:{'productId':productId,'isChecked':isChecked},
+				 type:'POST',
+				 dataType:'json',
+				 success:function(jsonObj){
+					 if(jsonObj.code==util.SUCCESS){
+						 refreshTotalPrice();
+					 }else{
+						 mylayer.errorMsg(jsonObj.msg);
+					 }
+				 }
+			 });
+		}
+		function refreshTotalPrice(){
+			var checkboxs = $('input[name=selectCheckbox]:checked');
+			var totalPrice = 0.00;
+			for(var i=0;i<checkboxs.length;i++){
+				var checkboxId = checkboxs[i].getAttribute('id');
+				var id = checkboxId.substr('checkbox'.length);
+				var cartItemTotalPrice = $('#cartItemTotalPrice'+id).html();
+				totalPrice += parseFloat(cartItemTotalPrice);
+			}
+			$('#totalPrice').html(totalPrice);
+		}
+		function delCartItemById(productId){
+			layer.confirm('您确认要删除么？',function(){
+			 $.ajax({
+				 url:'${ctx}/cart/delCartItemById.shtml',
+				 data:{'productId':productId},
+				 type:'POST',
+				 dataType:'json',
+				 success:function(jsonObj){
+					 if(jsonObj.code==util.SUCCESS){
+						 mylayer.success(jsonObj.msg);
+						 //在dom页面中将cartItem删除
+						 $('#checkbox'+productId).parent().parent().parent().remove();
+						 refreshTotalPrice();
+					 }else{
+						 mylayer.errorMsg(jsonObj.msg);
+					 }
+				 }
+			 });
+			});
+		}
 		
 	</script>
 </html>

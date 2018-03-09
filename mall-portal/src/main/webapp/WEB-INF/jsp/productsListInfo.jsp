@@ -68,6 +68,7 @@
 			<a href="${ctx}/product/getProductDetail.shtml?productId=${products.id}">
 			<img src="/pic/${products.mainImage}" class="productimg"/>
 			</a>
+			<%-- <c:set  var="namesubstring" value="${fn:substring(products.name,0,8)}"></c:set><p>${namesubstring}...</p> --%>
 			 <c:if test="${fn:length(products.name)>15}">
 			<p>${fn:substring(products.name, 0, 15)}...</p>
 			</c:if>
