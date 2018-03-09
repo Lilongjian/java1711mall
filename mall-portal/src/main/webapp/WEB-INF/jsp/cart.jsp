@@ -72,7 +72,7 @@
 			<div class="title_center">
 				<ul style="color: #666666;margin-top: 10px;margin-bottom: 10px;">
 					<li style="margin-left: 16px;margin-right: 8px;">
-						<input type="checkbox" />
+						<input type="checkbox" />   <!-- 全选按钮 -->
 					</li>
 					<li style="margin-left: 8px;margin-right: 38px;">全选</li>
 					<li style="margin-left: 38px;margin-right: 168px;">商品</li>
@@ -163,7 +163,7 @@
 		<div class="total">
 				<ul style="color: #666666;margin-top: 10px;margin-bottom: 10px;">
 					<li style="margin-left: 16px;margin-right: 8px;">
-						<input type="checkbox" />
+						<input type="checkbox" id="checkAlls" onclick="checkAll()"/>
 					</li>
 					<li style="margin-left: 8px;margin-right: 265px;">全选</li>
 					<li style="margin-left: 265px;margin-right: 18px;">总金额（已免运费）：<span id="totalPrice" style="color: #F41443;">¥0</span></li>
@@ -355,6 +355,7 @@
 		});
 		 $(function(){
 						refreshTotalPrice();
+						//selectProductStatus();
 					});
 		/* function add(productId){
 			var num = $('#num'+productId).val();
@@ -382,7 +383,7 @@
 						}
 						var num = $('#num'+productId).val();
 						$.ajax({
-							url : '${ctx}/cart/updateCart.shtml',
+							url : '${ctx}/cart/addOrUpdateCart.shtml',
 							data : {'productId' : productId, 'amount' : delta},
 							type : 'POST',
 							dataType : 'json',
@@ -394,16 +395,22 @@
 									var price = $('#price'+productId).attr('price');
 									var totalPrice = num * price;
 									$('#cartItemTotalPrice'+productId).html(totalPrice);
+									refreshTotalPrice();
 								} else {
 									mylayer.errorMsg(jsonObj.msg);
 								}
 							}
 						});
+					};
+					function checkAll(){
+						$("input[name=selectCheckbox]").prop("checked",$("#checkAlls").is(":checked"));
+						var isChecked = $('#checkAlls').prop('checked');
+						refreshTotalPrice();
 					}
 		function selectProductStatus(productId){
 			 var isChecked = $('#checkbox' + productId).prop('checked');
 			 $.ajax({
-				 url:'${ctx}/cart/updateCart.shtml',
+				 url:'${ctx}/cart/addOrUpdateCart.shtml',
 				 data:{'productId':productId,'isChecked':isChecked},
 				 type:'POST',
 				 dataType:'json',

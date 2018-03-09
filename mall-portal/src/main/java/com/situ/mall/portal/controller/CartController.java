@@ -2,6 +2,7 @@ package com.situ.mall.portal.controller;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -77,12 +78,12 @@ public class CartController {
 		}
 		return cartVo;
 	}
-	@RequestMapping("/addCart")
+	/*@RequestMapping("/addCart")
 	@ResponseBody
 	public ServerResponse addCart(Integer productId, Integer amount, HttpServletRequest request,
 						HttpServletResponse response, Model model) {
-		/*public String addCart(Integer productId, Integer amount, HttpServletRequest request,
-				HttpServletResponse response, Model model) {*/
+		public String addCart(Integer productId, Integer amount, HttpServletRequest request,
+				HttpServletResponse response, Model model) {
 		CartVo cartVo = getCartVoFromCookies(request);
 		//原来没有购物车这个cookies
 		if (cartVo == null) {
@@ -95,30 +96,59 @@ public class CartController {
 			}
 			setCartVoToCookie(response, cartVo);
 			return ServerResponse.createSuccess("添加购物车成功");
-		/*return "redirect:/cart/getCartPage.shtml";*/
-		/*return ServerResponse.createSuccess("添加购物车成功");*/
+		return "redirect:/cart/getCartPage.shtml";
+		return ServerResponse.createSuccess("添加购物车成功");
 		//return ServerResponse.createError("添加购物车失败");
 		
-	}
-	@RequestMapping("/updateCart")
+	}*/
+	@RequestMapping("/addOrUpdateCart")
 	@ResponseBody
-	public ServerResponse updateCart(Integer productId, Integer amount, HttpServletRequest request,
+	public ServerResponse addOrUpdateCart(Integer productId, Integer amount, Boolean isChecked, HttpServletRequest request,
 						HttpServletResponse response, Model model) {
+		/*public String addCart(Integer productId, Integer amount, HttpServletRequest request,
+				HttpServletResponse response, Model model) {*/
 		CartVo cartVo = getCartVoFromCookies(request);
 		//原来没有购物车这个cookies
 		if (cartVo == null) {
 			cartVo = new CartVo();
 		}
 			
-			boolean result = addOrUpdateCartVo(productId, amount, cartVo);
+			boolean result = addOrUpdateCartVo(productId, amount,isChecked,cartVo);
 			if (result == false) {
-				return ServerResponse.createError("更新购物车失败");
+				return ServerResponse.createError("添加购物车失败");
 			}
+			setCartVoToCookie(response, cartVo);
+			return ServerResponse.createSuccess("添加购物车成功");
+	}
+	@RequestMapping("/delCartItemById")
+	@ResponseBody
+	public ServerResponse delCartItemById(Integer productId,HttpServletRequest request,
+						HttpServletResponse response) {
+		CartVo cartVo = getCartVoFromCookies(request);
+		//原来没有购物车这个cookies
+		if (cartVo == null) {
+			/*cartVo = new CartVo();
+		}
+			
+			boolean result = addOrUpdateCartVo(productId, amount, cartVo);
+			if (result == false) {*/
+				return ServerResponse.createError("获取购物车失败");
+			}
+		   //遍历删除指定的id的购物项
+		   List<CartItemVo> cartItemVos = cartVo.getCartItemVos();
+		   Iterator<CartItemVo> iterator = cartItemVos.iterator();
+		   while (iterator.hasNext()) {
+			CartItemVo cartItemVo = (CartItemVo) iterator.next();
+			if (productId.intValue() == cartItemVo.getProduct().getId().intValue()) {
+				iterator.remove();
+			}
+			
+		}
 			setCartVoToCookie(response, cartVo);
 			return ServerResponse.createSuccess("更新购物车成功");
 		
 	}
-	private boolean addOrUpdateCartVo(Integer productId, Integer amount, CartVo cartVo	) {
+	private boolean addOrUpdateCartVo(Integer productId, Integer amount,Boolean isChecked,CartVo cartVo	) {
 		boolean isExist = false;
 		Product productTemp = productService.selectById(productId);
 		List<CartItemVo> cartItemVos = cartVo.getCartItemVos();
@@ -128,23 +158,48 @@ public class CartController {
 			// 1.1 这个商品cookie里面已经有了，根据productId找到这件商品，更新数量即可
 			if (item.getProduct().getId().intValue() == productId.intValue()) {
 				isExist = true;
-				//这个商品新的数量=原来购物车中这个商品数量+新添加这个商品的数量
+				/*//这个商品新的数量=原来购物车中这个商品数量+新添加这个商品的数量
 				int newAmount = item.getAmount() + amount;
 				//判断商品数量有没有超过库存
-				/*if (amount <= cartItemVo.getProduct().getStock()) {*/
+				if (amount <= cartItemVo.getProduct().getStock()) {
 				if (newAmount > productTemp.getStock()) {
 					//没有超过库存将这个产品数量跟新到购物车里面
-					/*return ServerResponse.createError("加入购物车失败，超出库存");*/
+					return ServerResponse.createError("加入购物车失败，超出库存");
 					return false;
-					/*return true;*/
+					return true;
 				} 
 					//如果数量超过库存数量则将最大库存
 					//item.setAmount(cartItemVo.getProduct().getStock());
-					/*return false;*/
+					return false;
 					item.setAmount(newAmount);
-					/*break;*///更新完这个商品之后就不需要遍历了
-					return true;
+					break;//更新完这个商品之后就不需要遍历了
+					return true;*/
+				if (amount != null) {
+					int newAmount = item.getAmount() + amount;
+					if (newAmount > productTemp.getStock()) {
+						//没有超过库存将这个产品数量跟新到购物车里面
+						return false;
+					}
+					item.setAmount(newAmount);
+				}
+				if (isChecked != null) {
+					if (isChecked) {
+						item.setIsChecked(Const.CartChecked.CHECKED);
+					} else {
+						item.setIsChecked(Const.CartChecked.UNCHECKED);
+					}
+				}
+ 				return true;//更新完这个商品数量后，后面的就不需要遍历
 			}
+			/*else{
+				if (isChecked != null) {
+					if (isChecked) {
+				      item.setIsChecked(Const.CartChecked.CHECKED);
+					}else {
+						item.setIsChecked(Const.CartChecked.UNCHECKED);
+					}
+			}
+			}*/
 		}
 		//在原来的购物车中就没有这件商品，直接添加
 		if (isExist == false) {

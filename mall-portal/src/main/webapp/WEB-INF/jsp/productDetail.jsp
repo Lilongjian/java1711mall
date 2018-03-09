@@ -962,8 +962,8 @@
      /*  window.location.href="${ctx}/cart/addCart.shtml?productId=${product.id}&amount="+$("#amount").val();  */
      /*  mylayer.successUrl('加入购物车成功','${ctx}/cart/getCartPage.shtml'); */
            $.ajax({
-        	url:'${ctx}/cart/addCart.shtml',
-        	data:{'productId':'${product.id}','amount':$("#amount").val()},
+        	url:'${ctx}/cart/addOrUpdateCart.shtml',
+        	data:{'productId':'${product.id}','amount':$("#amount").val(),isChecked:true},
         	type:'POST',
         	dataType:'json',
         	success:function(jsonObj){
