@@ -959,8 +959,9 @@
     	layer.msg('Hello');
     })
     function addCart(){
-      window.location.href="${ctx}/cart/addCart.shtml?productId=${product.id}&amount="+$("#amount").val(); 
-       /*  $.ajax({
+     /*  window.location.href="${ctx}/cart/addCart.shtml?productId=${product.id}&amount="+$("#amount").val();  */
+     /*  mylayer.successUrl('加入购物车成功','${ctx}/cart/getCartPage.shtml'); */
+           $.ajax({
         	url:'${ctx}/cart/addCart.shtml',
         	data:{'productId':'${product.id}','amount':$("#amount").val()},
         	type:'POST',
@@ -972,7 +973,7 @@
         			mylayer.errorMsg(jsonObj.msg);
         		}
         	}
-        }); */
+        }); 
     }
     </script>
 </html>

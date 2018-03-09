@@ -126,19 +126,21 @@
 								¥ 1699.00<br />
 							</del>
 						</span>
-						<span style="color: #666666;">
+						<span style="color: #666666;" id="price${cartItemVo.product.id}" price="${cartItemVo.product.price}">
 							<!-- ¥ 1499.00 -->
 							¥ ${cartItemVo.product.price }
 						</span>
 					</li>
 					<li class="num_select">
-						<input class="car_ul_btn1" type="button" value="-" />
-						<input class="car_ul_text" type="text" placeholder="1" value="${cartItemVo.amount }"/>
-						<input class="car_ul_btn2" type="button" value="+" />
+						<input class="car_ul_btn1" type="button" value="-" onclick="addOrSub(${cartItemVo.product.id}, '-')"/>
+						<input class="car_ul_text" type="text" id="num${cartItemVo.product.id}" placeholder="1" value="${cartItemVo.amount }" />
+						<input class="car_ul_btn2" type="button" value="+"   onclick="addOrSub(${cartItemVo.product.id}, '+')"/>
+						<%-- onclick="add(${cartItemVo.product.id})" --%>
 					</li>
 					<li class="money">
-						<span style="color: #F41443;">
-							¥ 1499.00
+						<span style="color: #F41443;"  id="totalPrice${cartItemVo.product.id}">
+						${cartItemVo.product.price*cartItemVo.amount}
+							<!-- ¥ 1499.00 -->
 						</span>
 					</li>
 					<li class="delete">
@@ -339,5 +341,54 @@
 			京公网安备 110101020011226|京ICP证111033号|食品流通许可证 SP1101051110165515（1-1）|营业执照
 		</div>
 	</body>
-
+    <script type="text/javascript">
+		layui.use(['layer'], function(){
+		  var layer = layui.layer;
+		});
+		/* function add(productId){
+			var num = $('#num'+productId).val();
+			 $.ajax({
+		        	url:'${ctx}/cart/updateCart.shtml',
+		        	data:{'productId':productId,'amount':1},
+		        	type:'POST',
+		        	dataType:'json',
+		        	success:function(jsonObj){
+		        		if(jsonObj.code == util.SUCCESS){
+		        			mylayer.successUrl(jsonObj.msg,'${ctx}/cart/getCartPage.shtml');
+		        			$('#num'+productId).val(++num);
+		        		}else{
+		        			mylayer.errorMsg(jsonObj.msg);
+		        		}
+		        	}
+		        }); 
+		} */
+		function addOrSub(productId, operator){
+						var delta;
+						if(operator=='+') {
+							delta = 1;
+						} else {
+							delta = -1;
+						}
+						var num = $('#num'+productId).val();
+						$.ajax({
+							url : '${ctx}/cart/updateCart.shtml',
+							data : {'productId' : productId, 'amount' : delta},
+							type : 'POST',
+							dataType : 'json',
+							success : function(jsonObj) {
+								if(jsonObj.code == util.SUCCESS) {
+									num = parseInt(num) + delta;
+									$('#num'+productId).val(num);
+									//updateTotalPrice
+									var price = $('#price'+productId).attr('price');
+									var totalPrice = num * price;
+									$('#totalPrice'+productId).html(totalPrice);
+								} else {
+									mylayer.errorMsg(jsonObj.msg);
+								}
+							}
+						});
+					}
+		
+	</script>
 </html>
