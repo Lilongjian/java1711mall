@@ -167,7 +167,8 @@
 					</li>
 					<li style="margin-left: 8px;margin-right: 265px;">全选</li>
 					<li style="margin-left: 265px;margin-right: 18px;">总金额（已免运费）：<span id="totalPrice" style="color: #F41443;">¥0</span></li>
-					<li class="total_right"><a href="">立即结算</a></li>
+					<li class="total_right"><a onclick="toAddOrder()">立即结算</a></li>
+					<!-- <a href="">立即结算</a> -->
 				</ul>
 			</div>
 					<div class="sp">
@@ -454,6 +455,17 @@
 			 });
 			});
 		}
-		
+		function toAddOrder(){
+			//todo:用户没有勾选任何商品checkbox，给用户一个提示：您还没哟选择任何商品
+			/*  var index = layer.open({
+				type:2,
+				title:'登录',
+				offset:'50px',
+				area:'auto',
+				content:'${ctx}/user/getLoginPage.shtml', 
+			 }); */
+			  window.location.href="${ctx}/user/getLoginPage.shtml"; 
+		}
+			
 	</script>
 </html>
