@@ -120,6 +120,26 @@ public class CartController {
 			setCartVoToCookie(response, cartVo);
 			return ServerResponse.createSuccess("添加购物车成功");
 	}
+	
+	/*@RequestMapping("/updateCartStatus")
+	@ResponseBody
+	public ServerResponse updateCartStatus(Integer productId, Integer amount, Boolean isChecked, HttpServletRequest request,
+						HttpServletResponse response, Model model) {
+		public String addCart(Integer productId, Integer amount, HttpServletRequest request,
+				HttpServletResponse response, Model model) {
+		CartVo cartVo = getCartVoFromCookies(request);
+		//原来没有购物车这个cookies
+		if (cartVo == null) {
+			cartVo = new CartVo();
+		}
+			
+			boolean result = addOrUpdateCartVo(productId, amount,isChecked,cartVo);
+			if (result == false) {
+				return ServerResponse.createError("添加购物车失败");
+			}
+			setCartVoToCookie(response, cartVo);
+			return ServerResponse.createSuccess("添加购物车成功");
+	}*/
 	@RequestMapping("/delCartItemById")
 	@ResponseBody
 	public ServerResponse delCartItemById(Integer productId,HttpServletRequest request,
@@ -149,6 +169,7 @@ public class CartController {
 		
 	}
 	private boolean addOrUpdateCartVo(Integer productId, Integer amount,Boolean isChecked,CartVo cartVo	) {
+		if (productId != null) {
 		boolean isExist = false;
 		Product productTemp = productService.selectById(productId);
 		List<CartItemVo> cartItemVos = cartVo.getCartItemVos();
@@ -191,14 +212,15 @@ public class CartController {
 				}
  				return true;//更新完这个商品数量后，后面的就不需要遍历
 			}
-			/*else{
+			/*if (productTemp == null) {
 				if (isChecked != null) {
 					if (isChecked) {
-				      item.setIsChecked(Const.CartChecked.CHECKED);
-					}else {
+						item.setIsChecked(Const.CartChecked.CHECKED);
+					} else {
 						item.setIsChecked(Const.CartChecked.UNCHECKED);
 					}
-			}
+				}
+				return true;
 			}*/
 		}
 		//在原来的购物车中就没有这件商品，直接添加
@@ -216,6 +238,19 @@ public class CartController {
 			return true;
 		}
 		return false;
+		}else{
+			List<CartItemVo> cartItemVos = cartVo.getCartItemVos();
+			for (CartItemVo item : cartItemVos) {
+				if (isChecked != null) {
+					if (isChecked) {
+						item.setIsChecked(Const.CartChecked.CHECKED);
+					} else {
+						item.setIsChecked(Const.CartChecked.UNCHECKED);
+					}
+				}
+			}
+			return true;
+			}
 	}
 	private void setCartVoToCookie(HttpServletResponse response, CartVo cartVo) {
 		//将cartVo对象以json形式放到cookie

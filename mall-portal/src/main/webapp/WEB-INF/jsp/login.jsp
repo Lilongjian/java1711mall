@@ -17,15 +17,12 @@
 	<link rel="stylesheet" type="text/css" href="${ctx}/static/front/css/home.css">
 	<style type="text/css">
 	.center{
-	margin:20px auto;
-	text-align:center
+	 margin:-80 -800px;
 	}
 	</style>
 </head>
-<body align>
-	<!-- <div class="pc-login-bj"> -->
-		<!-- <div class="center clearfix"> -->
-		
+<body>
+           <div class="center">
 			<div class="fr pc-login-box">
 				<div class="pc-login-title"><h2>用户登录</h2></div>
 				<form action="">
@@ -50,7 +47,6 @@
 				</form>
 			
 			</div>
-		<!-- </div> -->
-	<!-- </div> -->
+			</div>
 </body>
 </html>

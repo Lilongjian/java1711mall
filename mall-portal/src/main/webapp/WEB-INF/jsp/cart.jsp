@@ -407,6 +407,19 @@
 						$("input[name=selectCheckbox]").prop("checked",$("#checkAlls").is(":checked"));
 						var isChecked = $('#checkAlls').prop('checked');
 						refreshTotalPrice();
+						  $.ajax({
+							 url:'${ctx}/cart/addOrUpdateCart.shtml',
+							 data:{'isChecked':isChecked},
+							 type:'POST',
+							 dataType:'json',
+							 success:function(jsonObj){
+								 if(jsonObj.code==util.SUCCESS){
+									 refreshTotalPrice();
+								 }else{
+									 mylayer.errorMsg(jsonObj.msg);
+								 }
+							 }
+						 }); 
 					}
 		function selectProductStatus(productId){
 			 var isChecked = $('#checkbox' + productId).prop('checked');
@@ -418,6 +431,7 @@
 				 success:function(jsonObj){
 					 if(jsonObj.code==util.SUCCESS){
 						 refreshTotalPrice();
+						 
 					 }else{
 						 mylayer.errorMsg(jsonObj.msg);
 					 }
@@ -457,14 +471,14 @@
 		}
 		function toAddOrder(){
 			//todo:用户没有勾选任何商品checkbox，给用户一个提示：您还没哟选择任何商品
-			/*  var index = layer.open({
+			   var index = layer.open({
 				type:2,
 				title:'登录',
 				offset:'50px',
-				area:'auto',
-				content:'${ctx}/user/getLoginPage.shtml', 
-			 }); */
-			  window.location.href="${ctx}/user/getLoginPage.shtml"; 
+				area:['400px','400px'],
+				content: '${ctx}/user/getLoginPage.shtml',
+			 }); 
+			  /* window.location.href="${ctx}/user/getLoginPage.shtml";  */
 		}
 			
 	</script>
