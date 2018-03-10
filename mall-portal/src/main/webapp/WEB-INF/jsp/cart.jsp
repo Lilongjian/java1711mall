@@ -10,7 +10,7 @@
 		<link rel="stylesheet" type="text/css" href="${ctx}/static/front/css/cart_style.css" />
 	</head>
 
-	<body>
+	<body style="height:100%">
 		<div class="bg_color">
 			<div class="top_center">
 				<div class="left">
@@ -355,8 +355,14 @@
 		  var layer = layui.layer;
 		});
 		 $(function(){
-						refreshTotalPrice();
-						//selectProductStatus();
+			refreshTotalPrice();
+			var checkboxs = $('input[name=selectCheckbox]'); 
+			 var checkeds = $('input[name=selectCheckbox]:checked');
+			 if(checkboxs.length==checkeds.length){
+				 $('#checkAlls').prop('checked',true);	 
+			 }else{
+				 $('#checkAlls').prop('checked',false);
+			 }
 					});
 		/* function add(productId){
 			var num = $('#num'+productId).val();
@@ -431,7 +437,13 @@
 				 success:function(jsonObj){
 					 if(jsonObj.code==util.SUCCESS){
 						 refreshTotalPrice();
-						 
+						 var checkboxs = $('input[name=selectCheckbox]'); 
+						 var checkeds = $('input[name=selectCheckbox]:checked');
+						 if(checkboxs.length==checkeds.length){
+							 $('#checkAlls').prop('checked',true);	 
+						 }else{
+							 $('#checkAlls').prop('checked',false);
+						 }
 					 }else{
 						 mylayer.errorMsg(jsonObj.msg);
 					 }
