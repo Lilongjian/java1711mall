@@ -25,15 +25,15 @@
            <div class="center">
 			<div class="fr pc-login-box">
 				<div class="pc-login-title"><h2>用户登录</h2></div>
-				<form action="">
+				<form action="" id="login-form">
 					<div class="pc-sign">
-						<input type="text" placeholder="用户名/邮箱/手机号">
+						<input type="text" name="username" id="username" placeholder="用户名/邮箱/手机号">
 					</div>
 					<div class="pc-sign">
-						<input type="password" placeholder="请输入您的密码">
+						<input type="password" name="password" id="password" placeholder="请输入您的密码">
 					</div>
 					<div class="pc-submit-ss">
-						<input type="submit" value="登录" placeholder="">
+						<input type="button" onclick="login()" value="登录" placeholder="">
 					</div>
 					<div class="pc-item-san clearfix">
 						<a href="#"><img src="${ctx}/static/front/img/icon/weixin.png" alt="">微信登录</a>
@@ -49,4 +49,49 @@
 			</div>
 			</div>
 </body>
+      <script type="text/javascript">
+      layui.use(['layer'],function(){
+      	var layer = layui.layer;
+      });
+        function login(){
+    	  var username=$("#username").val();
+    	    var password=$("#password").val();
+    	    if(util.isNull(username)){
+    	    	mylayer.errorMsg("用户名不能为空");
+    	    	return;
+    	    }
+    	  //1.2、是否合法：4-8数字或字母
+    		if(!isUsernameValid(username)) {
+    			mylayer.errorMsg("用户名不合法，4-8数字或字母");
+    			return;
+    		}
+    		
+    		//2、密码不能为空
+    		if(util.isNull(password)) {
+    			mylayer.errorMsg("密码不能为空");
+    			return;
+    		}
+    		//3.ajax提交用户名和密码，并且接受后台的返回的json的数值
+    	    $.ajax({
+    	    	url:"${ctx}/user/login.shtml",
+    	    	type:"POST",
+    	    	dataType:"json",
+    	    	data:$("#login-form").serialize(),
+    	    	success:function(data){
+    	    			if(data.code == util.SUCCESS){
+    	    			mylayer.success(data.msg);
+    	    			window.location.href='${ctx}/order/getOrderPage.shtml';
+    	    		}else{
+    	    			mylayer.errorMsg(data.msg);
+    	    		}
+    	    	}
+    	    });
+      }
+      /*是否合法：4-8数字或字母*/
+        	function isUsernameValid(value) {
+        		var pattern = /^[0-9a-zA-Z]{4,8}$/;
+        		return pattern.test(value);
+          	} 
+      </script>
+
 </html>

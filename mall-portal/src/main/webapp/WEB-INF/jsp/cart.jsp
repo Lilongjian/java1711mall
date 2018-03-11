@@ -165,9 +165,10 @@
 					<li style="margin-left: 16px;margin-right: 8px;">
 						<input type="checkbox" id="checkAlls" onclick="checkAll()"/>
 					</li>
-					<li style="margin-left: 8px;margin-right: 265px;">全选</li>
-					<li style="margin-left: 265px;margin-right: 18px;">总金额（已免运费）：<span id="totalPrice" style="color: #F41443;">¥0</span></li>
-					<li class="total_right"><a onclick="toAddOrder()">立即结算</a></li>
+					<li style="margin-left: 8px;margin-right: 420px;">全选</li>
+					<li>已选择<span id="count" style="color:red"></span>件商品</li>
+					<li style="margin-left: 30px;margin-right: 18px;">总金额（已免运费）：<span id="totalPrice" style="color: #F41443;">¥0</span></li>
+					<li class="total_right" ><a onclick="toAddOrder()" id="toAddOrder" href="javascript:void(0);">立即结算</a></li>
 					<!-- <a href="">立即结算</a> -->
 				</ul>
 			</div>
@@ -358,6 +359,7 @@
 			refreshTotalPrice();
 			var checkboxs = $('input[name=selectCheckbox]'); 
 			 var checkeds = $('input[name=selectCheckbox]:checked');
+			 $('#count').html(checkeds.length);
 			 if(checkboxs.length==checkeds.length){
 				 $('#checkAlls').prop('checked',true);	 
 			 }else{
@@ -412,6 +414,8 @@
 					function checkAll(){
 						$("input[name=selectCheckbox]").prop("checked",$("#checkAlls").is(":checked"));
 						var isChecked = $('#checkAlls').prop('checked');
+						 var checkeds = $('input[name=selectCheckbox]:checked');
+						 $('#count').html(checkeds.length);
 						refreshTotalPrice();
 						  $.ajax({
 							 url:'${ctx}/cart/addOrUpdateCart.shtml',
@@ -439,6 +443,7 @@
 						 refreshTotalPrice();
 						 var checkboxs = $('input[name=selectCheckbox]'); 
 						 var checkeds = $('input[name=selectCheckbox]:checked');
+						 $('#count').html(checkeds.length);
 						 if(checkboxs.length==checkeds.length){
 							 $('#checkAlls').prop('checked',true);	 
 						 }else{
@@ -474,6 +479,14 @@
 						 //在dom页面中将cartItem删除
 						 $('#checkbox'+productId).parent().parent().parent().remove();
 						 refreshTotalPrice();
+						 var checkboxs = $('input[name=selectCheckbox]'); 
+						 var checkeds = $('input[name=selectCheckbox]:checked');
+						 $('#count').html(checkeds.length);
+						 if(checkboxs.length==checkeds.length){
+							 $('#checkAlls').prop('checked',true);	 
+						 }else{
+							 $('#checkAlls').prop('checked',false);
+						 }
 					 }else{
 						 mylayer.errorMsg(jsonObj.msg);
 					 }
@@ -483,13 +496,22 @@
 		}
 		function toAddOrder(){
 			//todo:用户没有勾选任何商品checkbox，给用户一个提示：您还没哟选择任何商品
-			   var index = layer.open({
+			//layer.tips('Hi，我是tips', '#toAddOrder');
+			 var count = $('#count').html();
+			 if(count == 0){
+			layer.tips('请至少选择一件商品', '#toAddOrder', {
+				  tips: [1, '#gh4526'],
+				  time: 1000
+				});
+			 }else{
+			    var index = layer.open({
 				type:2,
 				title:'登录',
 				offset:'50px',
 				area:['400px','400px'],
 				content: '${ctx}/user/getLoginPage.shtml',
-			 }); 
+			 });
+			 }
 			  /* window.location.href="${ctx}/user/getLoginPage.shtml";  */
 		}
 			

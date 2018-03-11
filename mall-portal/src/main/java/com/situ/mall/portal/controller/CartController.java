@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -277,6 +278,5 @@ public class CartController {
 		//将cookie发送到浏览器
 		response.addCookie(cookie);
 	}
-	
 
 }

@@ -22,7 +22,7 @@ var mylayer = {
 	errorMsg : function(contents) {
 		layer.msg(
 			contents,
-			{icon:2, time:3000,offset: '300px'}
+			{icon:2, time:3000,offset: '200px'}
 		);
 	},
 	
