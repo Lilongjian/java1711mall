@@ -68,6 +68,12 @@
                             <span class="nav-label">分类列表</span>
                         </a>
                     </li>
+                      <li>
+                        <a class="J_menuItem" href="${ctx}/category/getCategoryPage.action">
+                            <i class="fa fa-home"></i>
+                            <span class="nav-label">主题</span>
+                        </a>
+                    </li>
                     <li>
                         <a href="#">
                             <i class="fa fa fa-bar-chart-o"></i>
