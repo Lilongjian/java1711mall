@@ -1,5 +1,7 @@
 package com.situ.mall.core.mapper;
 
+import java.util.List;
+
 import com.situ.mall.core.entity.Shipping;
 
 public interface ShippingMapper {
@@ -14,4 +16,6 @@ public interface ShippingMapper {
     int updateByPrimaryKeySelective(Shipping record);
 
     int updateByPrimaryKey(Shipping record);
+
+	List<Shipping> selectByUserPrimaryKey(Integer id);
 }

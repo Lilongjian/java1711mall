@@ -76,11 +76,11 @@
     	    	url:"${ctx}/user/login.shtml",
     	    	type:"POST",
     	    	dataType:"json",
+    	    	 /* async:false, */
     	    	data:$("#login-form").serialize(),
     	    	success:function(data){
     	    			if(data.code == util.SUCCESS){
-    	    			mylayer.success(data.msg);
-    	    			window.location.href='${ctx}/order/getOrderPage.shtml';
+    	    			  window.open("${ctx}/order/getOrderPage.shtml","_top"); /* ,"_blank" */
     	    		}else{
     	    			mylayer.errorMsg(data.msg);
     	    		}
