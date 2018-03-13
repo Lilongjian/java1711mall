@@ -13,9 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.situ.mall.common.response.ServerResponse;
 import com.situ.mall.core.entity.Product;
 import com.situ.mall.core.entity.Shipping;
 import com.situ.mall.core.entity.User;
@@ -81,4 +83,9 @@ public class OrderController {
 		}
 		return cartVo;
 	}
+   @RequestMapping("/addOrder")
+   /*@ResponseBody*/
+   public String addOrder (){
+	   return "apy";
+   }
 }

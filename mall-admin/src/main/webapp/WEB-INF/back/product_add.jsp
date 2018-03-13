@@ -163,7 +163,7 @@ function uploadPic(){
 		dataType : 'json',
 		success : function(jsonObj){
 			console.log(jsonObj);
-			$('#imgId').attr('src',jsonObj.url);
+			$('#imgId').attr('src',jsonObj.url); 
 			$('#mainImage').val(jsonObj.fileName);
 		}
 	});

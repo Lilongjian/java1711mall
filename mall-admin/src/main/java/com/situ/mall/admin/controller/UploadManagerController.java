@@ -27,7 +27,7 @@ public class UploadManagerController {
 		//为了防止文件重名，所以生成一个不重复的随机的名字
 		String name=UUID.randomUUID().toString().replace("-", "");
 		String ext = FilenameUtils.getExtension(pictureFile.getOriginalFilename());
-		String fileName = name + "." + ext;
+		String fileName = name + "." + ext;//ext取它的后缀名
 		String filePath = "D:\\pic\\" + fileName;
 		try {
 			pictureFile.transferTo(new File(filePath));

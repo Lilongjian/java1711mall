@@ -449,7 +449,8 @@
 						<div class="checkout-confirm">
 
 							<a href="#" class="btn btn-lineDakeLight btn-back-cart">返回购物车</a>
-							<a href="my-apy.html" class="btn btn-primary">立即下单</a>
+							<a onclick="toAddOrder()" id="toAddOrder" class="btn btn-primary">立即下单</a>
+							<!-- onclick="toAddOrder()" id="toAddOrder" href="javascript:void(0);" -->
 
 						</div>
 					</div>
@@ -644,7 +645,11 @@
 		$('#totalPrice').html(totalPrice);
 		$('#totalPriceTwo').html(totalPrice);
     	
-				}); 
+				});
+    function toAddOrder(){
+    	window.location.href="${ctx}/order/addOrder.shtml";
+    }
+    
 </script>
 
 

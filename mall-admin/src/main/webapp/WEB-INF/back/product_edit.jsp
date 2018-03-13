@@ -197,7 +197,7 @@ $.ajax({
 					  }
 				  }
 				  $('#secondCategory').html(html);
-				  form.render('select');//刷新select选择框渲染，不然不显示
+				 // form.render('select');//刷新select选择框渲染，不然不显示
 			  }else{
 				  mylayer.errorMsg(jsonObj.msg);
 			  }
