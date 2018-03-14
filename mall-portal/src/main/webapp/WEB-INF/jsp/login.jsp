@@ -81,6 +81,7 @@
     	    	success:function(data){
     	    			if(data.code == util.SUCCESS){
     	    			  window.open("${ctx}/order/getOrderPage.shtml","_top"); /* ,"_blank" */
+    	    			 /*  window.location.href="${ctx}/order/getOrderPage.shtml"; */
     	    		}else{
     	    			mylayer.errorMsg(data.msg);
     	    		}

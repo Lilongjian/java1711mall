@@ -148,6 +148,7 @@
 								<div class="clearfix xm-address-list" id="checkoutAddrList">
 								<c:forEach items="${shippings}" var="shippings">
 									<dl class="item" >
+									<input id="checkbox${shippings.id}" name="selectCheckbox" type="checkbox">
 										<dt>
 											<strong class="itemConsignee">${shippings.receiverName}</strong>
 											<span class="itemTag tag">家</span>
@@ -358,7 +359,7 @@
 											<span class="col col-4">小计（元）</span>
 										</dt>
 										<c:forEach items="${cartVo.cartItemVos}" var="cartItemVo">
-										<c:if test="${cartItemVo.isChecked==1}">
+									<%-- 	<c:if test="${cartItemVo.isChecked==1}"> --%>
 										<dd class="item clearfix" name="ddid" id="${cartItemVo.product.id}">
 											<div class="item-row">
 												<div class="col col-1">
@@ -378,7 +379,7 @@
 												<div class="col col-4"><span id="cartItemTotalPrice${cartItemVo.product.id}">${cartItemVo.product.price*cartItemVo.amount}</span></div>
 											</div>
 										</dd>
-										</c:if>
+										<%-- </c:if> --%>
 										</c:forEach>
 										
 									</dl>
@@ -646,8 +647,30 @@
 		$('#totalPriceTwo').html(totalPrice);
     	
 				});
+
     function toAddOrder(){
-    	window.location.href="${ctx}/order/addOrder.shtml";
+    	var checkbox = $('input[name=selectCheckbox]:checked');
+    	var id ;
+    	for(var i=0;i<checkbox.length;i++){
+    		var checkboxId = checkbox[i].getAttribute("id");
+    		id = checkboxId.substr('checkbox'.length);
+    		break;
+    	}
+    	console.log(id);
+    	/*  $.ajax({
+				url:'${ctx}/order/addOrder.shtml',
+				data:{'shippingId':'${shipping.id}','totalprice':$("#totalPrice").html(),'paytype':$("#paymentType").val(),'postage':$("#postage").val()},
+				dataType:'json',
+				type:"POST",
+				success:function(data){
+					if(data.code== util.SUCCESS){ */
+						//mylayer.successUrl(data.msg,'${ctx}/cart/getCartPage.shtml');
+						window.location.href="${ctx}/order/addOrder.shtml";
+					/* }
+					
+				}
+			});  */
+
     }
     
 </script>

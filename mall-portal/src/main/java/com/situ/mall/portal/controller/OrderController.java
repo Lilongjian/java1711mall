@@ -1,6 +1,7 @@
 package com.situ.mall.portal.controller;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.situ.mall.common.response.ServerResponse;
+import com.situ.mall.core.constant.Const;
 import com.situ.mall.core.entity.Product;
 import com.situ.mall.core.entity.Shipping;
 import com.situ.mall.core.entity.User;
@@ -46,16 +48,32 @@ public class OrderController {
 	  CartVo cartVo = getCartVoFromCookies(request);
 	  //将CartItemVo里面的product填满信息，因为现在只有一个id
 	  List<CartItemVo> cartItemVos = cartVo.getCartItemVos();
-	  for (CartItemVo cartItemVo : cartItemVos) {
+	  //for循环这种方式，remove的时候报错，要用迭代器
+	 /* for (CartItemVo cartItemVo : cartItemVos) {
 		  if (cartItemVo.getIsChecked()==1) {
 		Product product = productService.selectById(cartItemVo.getProduct().getId());
 		System.out.println(product);
 		cartItemVo.setProduct(product);
 		  }
+	}*/
+	  Iterator<CartItemVo> iterator = cartItemVos.iterator();
+	  while (iterator.hasNext()) {
+		CartItemVo item = (CartItemVo) iterator.next();
+		//没有勾选的移除
+		if (item.getIsChecked() == Const.CartChecked.UNCHECKED) {
+			iterator.remove();
+		}else{
+			//勾选的将product更新为详细信息
+			Product product = productService.selectById(item.getProduct().getId());
+			item.setProduct(product);
+		}
+		
 	}
 	  model.addAttribute("cartVo", cartVo);
 	   return "order";
    }
+   
+   
    private CartVo getCartVoFromCookies(HttpServletRequest request) {
 		CartVo cartVo = null;
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -83,6 +101,9 @@ public class OrderController {
 		}
 		return cartVo;
 	}
+   
+   
+   
    @RequestMapping("/addOrder")
    /*@ResponseBody*/
    public String addOrder (){
