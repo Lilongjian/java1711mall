@@ -1,6 +1,9 @@
 package com.situ.mall.portal.controller;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -20,13 +23,18 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.situ.mall.common.response.ServerResponse;
 import com.situ.mall.core.constant.Const;
+import com.situ.mall.core.entity.Order;
+import com.situ.mall.core.entity.OrderItem;
 import com.situ.mall.core.entity.Product;
 import com.situ.mall.core.entity.Shipping;
 import com.situ.mall.core.entity.User;
+import com.situ.mall.core.service.IOrderItemService;
+import com.situ.mall.core.service.IOrderService;
 import com.situ.mall.core.service.IProductService;
 import com.situ.mall.core.service.IShippingService;
 import com.situ.mall.portal.vo.CartItemVo;
 import com.situ.mall.portal.vo.CartVo;
+import com.situ.mall.portal.vo.OrderVo;
 
 @Controller
 @RequestMapping("/order")
@@ -36,6 +44,10 @@ public class OrderController {
 	private IProductService productService;
 	@Autowired
 	private IShippingService shippingService;
+	@Autowired
+	private  IOrderService orderService;
+	@Autowired
+	private IOrderItemService orderItemService;
    @RequestMapping("/getOrderPage")
    public String getOrderPage(HttpSession session,HttpServletRequest request,Model model){
 	   //1.从session中获得user对象
@@ -102,11 +114,62 @@ public class OrderController {
 		return cartVo;
 	}
    
-   
-   
    @RequestMapping("/addOrder")
-   /*@ResponseBody*/
-   public String addOrder (){
+   @ResponseBody
+   public ServerResponse addOrder(Integer shippingId,Integer totalprice,HttpSession session,HttpServletRequest request,Model model){
+	   //1.创建订单对象
+	   Order order = new Order();
+	   Long curr = System.currentTimeMillis();
+       SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
+       Date date = new Date(curr);
+       order.setOrderNo(Long.parseLong(format.format(date)));
+       User user = (User) session.getAttribute("CURRENT_USER");
+       order.setUserId(user.getId());
+       order.setShippingId(shippingId);
+       BigDecimal total = new BigDecimal(totalprice);
+       order.setPayment(total);
+       //2.将订单插入数据库
+       int count = orderService.add(order);
+       if (count > 0) {
+		System.out.println("添加成功");
+	}
+       //3.从cookies里面得到cartvo
+       CartVo cartVo = getCartVoFromCookies(request);
+       List<CartItemVo> cartItemVos = cartVo.getCartItemVos();
+       OrderVo orderVo = new OrderVo();
+       for (CartItemVo item : cartItemVos) {
+		  //购物车里面选中的加入购物车
+    	   if (item.getIsChecked()==Const.CartChecked.CHECKED) {
+			OrderItem orderItem = new OrderItem();
+			orderItem.setOrderNo(order.getOrderNo());
+			orderItem.setUserId(user.getId());
+			Product product = productService.selectById(item.getProduct().getId());
+	        orderItem.setProductId(product.getId());
+	        orderItem.setCurrentUnitPrice(product.getPrice());
+	        orderItem.setProductName(product.getName());
+	        orderItem.setQuantity(item.getAmount());
+	        orderItem.setTotalPrice(order.getPayment());
+	        orderItem.setProductImage(product.getMainImage());
+	        orderItemService.addOrderItem(orderItem);
+	        //orderVo.setOrderItems(orderItem);
+		}
+	}
+       //4.遍历cartvo将所有ischecked是1的删除，然后写道cookies
+       Iterator<CartItemVo> iterator = cartItemVos.iterator();
+       while (iterator.hasNext()) {
+		CartItemVo item = (CartItemVo) iterator.next();
+		if (item.getIsChecked()==Const.CartChecked.CHECKED) {
+			iterator.remove();
+		}
+		
+	}
+	   return ServerResponse.createSuccess("添加数据库成功");
+   }
+   
+   
+   
+   @RequestMapping("/getApyPage")
+   public String getApyPage (){
 	   return "apy";
    }
 }

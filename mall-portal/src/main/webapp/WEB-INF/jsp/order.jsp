@@ -657,19 +657,19 @@
     		break;
     	}
     	console.log(id);
-    	/*  $.ajax({
+    	 $.ajax({
 				url:'${ctx}/order/addOrder.shtml',
-				data:{'shippingId':'${shipping.id}','totalprice':$("#totalPrice").html(),'paytype':$("#paymentType").val(),'postage':$("#postage").val()},
+				data:{'shippingId':id,'totalprice':$("#totalPrice").html()},
 				dataType:'json',
 				type:"POST",
 				success:function(data){
-					if(data.code== util.SUCCESS){ */
+					if(data.code== util.SUCCESS){ 
 						//mylayer.successUrl(data.msg,'${ctx}/cart/getCartPage.shtml');
-						window.location.href="${ctx}/order/addOrder.shtml";
-					/* }
+						window.location.href="${ctx}/order/getApyPage.shtml";
+					 }
 					
 				}
-			});  */
+			});  
 
     }
     
