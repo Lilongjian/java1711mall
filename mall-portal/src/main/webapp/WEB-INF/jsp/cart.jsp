@@ -19,7 +19,10 @@
 				<div class="right">
 					<ul>
 						<li>
-							<a class="login" href="login.html" target="_blank">请登录</a>
+							<a class="login" href="login.html" target="_blank">
+							<c:if test="${CURRENT_USER.username==null}">请登录</c:if>
+                            <c:if test="${CURRENT_USER.username!=null}">${CURRENT_USER.username}</c:if>
+							</a>
 						</li>
 						<li>
 							<a href="register.html" target="_blank">快速注册</a>
@@ -504,15 +507,26 @@
 				  time: 1000
 				});
 			 }else{
-			    var index = layer.open({
-				type:2,
-				title:'登录',
-				offset:'50px',
-				area:['400px','400px'],
-				content: '${ctx}/user/getLoginPage.shtml',
-			 });
+				 $.ajax({
+                     url:'${ctx}/user/getLoginInspect.shtml',
+                     type:'POST',
+                     dataType:'json',
+                     success:function(jsonObj){
+                           if(jsonObj.code==util.SUCCESS){
+                                 window.open("${ctx}/order/getOrderPage.shtml");
+                           }else{
+                                 var index = layer.open({
+                                            type:2,
+                                            title:'登录',
+                                            offset:'50px',
+                                            area:['400px','400px'],
+                                            content: '${ctx}/user/getLoginPage.shtml',
+                                       });
+                           }
+                     }
+               });
+				 
 			 }
-			  /* window.location.href="${ctx}/user/getLoginPage.shtml";  */
 		}
 			
 	</script>

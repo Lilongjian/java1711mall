@@ -49,7 +49,10 @@
 				<div class="right">
 					<ul>
 						<li>
-							<a class="login" href="login.html" target="_blank">请登录</a>
+							<a class="login" href="login.html" target="_blank">
+							<c:if test="${CURRENT_USER.username==null}">请登录</c:if>
+                           <c:if test="${CURRENT_USER.username!=null}">${CURRENT_USER.username}</c:if>
+							</a>
 						</li>
 						<li>
 							<a href="register.html" target="_blank">快速注册</a>

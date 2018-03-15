@@ -21,7 +21,10 @@
 				</div>
 				<div class="right">
 					<ul>
-						<li><a class="login" href="login.shtml" target="_blank">请登录</a></li>
+						<li><a class="login" href="login.shtml" target="_blank">
+						<c:if test="${CURRENT_USER.username==null}">请登录</c:if>
+                        <c:if test="${CURRENT_USER.username!=null}">${CURRENT_USER.username}</c:if>
+						</a></li>
 						<li><a href="register.html" target="_blank">快速注册</a></li>
 						<li><a class="collect" href="">我的收藏</a></li>
 						<li><a class="indent" href="">我的订单</a></li>

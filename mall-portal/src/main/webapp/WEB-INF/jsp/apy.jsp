@@ -25,7 +25,10 @@
 <header id="pc-header">
 	<div class="pc-header-nav">
 		<div class="pc-header-con">
-			<div class="fl pc-header-link" >您好！，欢迎来云购物 <a href="login.html" target="_blank">请登录</a> <a href="register.html" target="_blank"> 免费注册</a></div>
+			<div class="fl pc-header-link" >您好！，欢迎来云购物 <a href="login.html" target="_blank">
+			<c:if test="${CURRENT_USER.username==null}">请登录</c:if>
+            <c:if test="${CURRENT_USER.username!=null}">${CURRENT_USER.username}</c:if>
+			</a> <a href="register.html" target="_blank"> 免费注册</a></div>
 			<div class="fr pc-header-list top-nav">
 				<ul>
 					<li>
@@ -119,7 +122,7 @@
 			<table>
 				<thead>
 					<tr class="tab-0">
-						<!-- <th class="tab-1"><input type="checkbox" name="s_all" class="s_all tr_checkmr" id="s_all_h"><label for=""> 全选</label></th> -->
+						<th class="tab-1"><input type="checkbox" name="s_all" class="s_all tr_checkmr" id="checkAll" onclick="checkAll()"><label for="checkAll"> 全选</label></th>
 						<th class="tab-2">订单号</th>
 						<th class="tab-3">用户ID</th>
 						<th class="tab-4">总金额</th>
@@ -142,9 +145,14 @@
 					</tr>
 					<c:forEach items="${orders}" var="orders">
 					<tr>
+					<th>
+					<div class="car_con_1" onclick="selectProductStatus(${orders.id})">
+					<input type="checkbox" name="selectCheckbox" id="checkbox${orders.id}"/>
+					</div>
+					</th>
 					<th>${orders.orderNo}</th>
 					<th>${orders.userId}</th>
-					<th>${orders.payment}</th>
+					<th><span id="cartItemTotalPrice${orders.id}">${orders.payment}</span></th>
 					<th>
 					<fmt:formatDate value="${orders.createTime}" pattern="yyyy-MM-dd" ></fmt:formatDate>
 					</th>
@@ -190,9 +198,9 @@
 				<a href="#">清楚失效商品</a>
 			</div>
 			<div class="fr pc-shop-fr">
-				<p>共有 <em class="red pc-shop-shu">2</em> 款商品，总计（不含运费）</p>
-				<span>¥ 699.00</span>
-				<a href="#">去付款</a>
+				<p>选中 <em class="red pc-shop-shu"><kk id="count">0</kk></em> 款商品，总计（不含运费）</p>
+				<span id="totalPrice">0</span>
+				<a href="javaScript:void(0);" onclick="go()" id="go">去付款</a>
 			</div>
 		</div>
 	</div>
@@ -315,6 +323,7 @@ layui.use(['layer'], function(){
 				title:'订单详情页',
 				offset:'50px',
 				area:['1500px','400px'],
+				shadeClose: true,
 				content:  '${ctx}/order/getOrderItemPage.shtml?orderNo='+orderNo,
 			    }); 
 			  /*   window.location.href='${ctx}/order/getOrderItemPage.shtml?orderNo='+orderNo; */
@@ -325,6 +334,41 @@ layui.use(['layer'], function(){
 			  
 			/* window.location.href="${ctx}/order/getOrderItemPage.shtml?orderNo=" + orderNo */
 		  /*  window.location.href="${ctx}/order/getOrderItemPage.shtml"; */
+		  
+		  function checkAll(){
+			  $("input[name=selectCheckbox]").prop("checked",$("#checkAll").is(":checked"));
+			  var checkeds = $("input[name=selectCheckbox]:checked");
+			  $("#count").html(checkeds.length);
+			  refreshTotalPrice();
+		  }
+		  function selectProductStatus(productId){
+			  var checkboxs = $('input[name=selectCheckbox]');
+			  var checked = $('input[name=selectCheckbox]:checked');
+			  $('#count').html(checked.length);
+			  if(checkboxs.length==checked.length){
+				  $('#checkAll').prop('checked',true);
+			  }else{
+				  $('#checkAll').prop('checked',false);
+			  }
+			  refreshTotalPrice();
+		  }
+		  function refreshTotalPrice(){
+			  var checkeds = $('input[name=selectCheckbox]:checked');
+			  var totalPrice=0.00;
+			  for(var i=0;i<checkeds.length;i++){
+			  var checkboxId = checkeds[i].getAttribute('id');
+			  var id = checkboxId.substr('checkbox'.length);
+			  var cartItemTotalPrice = $("#cartItemTotalPrice"+id).html();
+			  totalPrice+=parseFloat(cartItemTotalPrice);
+			  }
+			  $('#totalPrice').html(totalPrice);
+		  }
+		  function go(){
+			  layer.tips('产品研发中','#go',{
+				  tips:[1,'green'],
+                  time:1000,  			  
+			  })
+		  }
 		
 </script>
 </body>

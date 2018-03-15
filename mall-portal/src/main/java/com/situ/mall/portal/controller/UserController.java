@@ -30,5 +30,15 @@ public class UserController {
 	 session.setAttribute(Const.CURRENT_USER,user);
 	 return response; 
  }
+ @RequestMapping("/getLoginInspect")
+ @ResponseBody
+      public ServerResponse getLoginInspect(HttpSession session){
+       User user = (User) session.getAttribute("CURRENT_USER");
+       if (user != null) {
+            return ServerResponse.createSuccess("已经登录");
+      }
+            return ServerResponse.createError("请登录");
+      }
+
 
 }
