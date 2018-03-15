@@ -119,20 +119,20 @@
 			<table>
 				<thead>
 					<tr class="tab-0">
-						<th class="tab-1"><input type="checkbox" name="s_all" class="s_all tr_checkmr" id="s_all_h"><label for=""> 全选</label></th>
-						<th class="tab-2">商品</th>
-						<th class="tab-3">商品信息</th>
-						<th class="tab-4">单价</th>
-						<th class="tab-5">数量</th>
-						<th class="tab-6">小计</th>
-						<th class="tab-7">操作</th>
+						<!-- <th class="tab-1"><input type="checkbox" name="s_all" class="s_all tr_checkmr" id="s_all_h"><label for=""> 全选</label></th> -->
+						<th class="tab-2">订单号</th>
+						<th class="tab-3">用户ID</th>
+						<th class="tab-4">总金额</th>
+						<th class="tab-5">创建时间</th>
+						<th class="tab-6">订单详情</th>
+						<!-- <th class="tab-7">操作</th> -->
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<td colspan="7" style="padding-left:10px; background:#eee">
 							<input type="checkbox" checked >
-							<label for="">云购物自营</label>
+							<label for="">靓淘自营</label>
 							<a href="#" style="position:relative;padding-left:50px"><i class="icon-kefu"></i>联系客服</a>
 							<ul class="clearfix fr" style="padding-right:20px">
 								<li><i class="pc-shop-car-yun"></i>满109元减10</li>
@@ -140,28 +140,19 @@
 							</ul>
 						</td>
 					</tr>
+					<c:forEach items="${orders}" var="orders">
 					<tr>
-						<th><input type="checkbox"  style="margin-left:10px; float:left"></th>
-						<th class="tab-th-1">
-							<a href="#"><img src="images/shangpinxiangqing/X1.png" width="100%" alt=""></a>
-							<a href="#" class="tab-title">赛亿（shinee)取暖器家用/取暖电器/电暖器/电暖气台式摇头暖风机HN2118PT </a>
-						</th>
-						<th>
-							<p>颜色：黑色</p>
-							<p>规格：落地款</p>
-						</th>
-						<th>
-							<p>399.99</p>
-							<p class="red">299.99</p>
-						</th>
-						<th class="tab-th-2">
-							<span>-</span>
-							<input type="text" value="1" maxlength="3" placeholder="" class="shul">
-							<span>+</span>
-						</th>
-						<th class="red">299.99</th>
-						<th><a href="#">删除</a></th>
+					<th>${orders.orderNo}</th>
+					<th>${orders.userId}</th>
+					<th>${orders.payment}</th>
+					<th>
+					<fmt:formatDate value="${orders.createTime}" pattern="yyyy-MM-dd" ></fmt:formatDate>
+					</th>
+					<%-- <th><a href="${ctx}/order/getOrderItemPage.shtml">订单详情</a></th> --%>
+					<th><a onclick="getOrderItemPage(${orders.orderNo})" href="javascript:void(0);">订单详情</a></th>
 					</tr>
+					</c:forEach>
+					
 					<!-- <tr>
 						<th><input type="checkbox"  style="margin-left:10px; float:left"></th>
 						<th class="tab-th-1">
@@ -284,7 +275,11 @@
 		</div>
 	</div>
 </footer>
+
 <script type="text/javascript">
+layui.use(['layer'], function(){
+	  var layer = layui.layer;
+	});
     //hover 触发两个事件，鼠标移上去和移走
     //mousehover 只触发移上去事件
     $(".top-nav ul li").hover(function(){
@@ -298,6 +293,39 @@
         $(this).removeClass("hover");
         $(this).find(".nav a").removeClass("hover");
     })
+       function getOrderItemPage(orderNo){ 
+    	 console.log(orderNo);
+    	/*   $.ajax({
+				url : '${ctx}/order/getOrderItemData.shtml',
+				data : {'orderNo' : orderNo},
+				type : 'POST',
+				dataType : 'json',
+				success : function(jsonObj) { */
+				 /* var index = layer.open({
+						type:2,
+						title:'订单详情页',
+						offset:'50px',
+						area:['800px','400px'],
+						content:  '${ctx}/order/getOrderItemPage.shtm',
+				 }) */
+				/* }
+    	  }) */
+			    var index = layer.open({
+				type:2,
+				title:'订单详情页',
+				offset:'50px',
+				area:['1500px','400px'],
+				content:  '${ctx}/order/getOrderItemPage.shtml?orderNo='+orderNo,
+			    }); 
+			  /*   window.location.href='${ctx}/order/getOrderItemPage.shtml?orderNo='+orderNo; */
+				 } 
+				/* 1234567891 */
+					/* $("#orderItem"+orderNo).html(), */
+					/* '${ctx}/order/getOrderItemPage.shtml', */
+			  
+			/* window.location.href="${ctx}/order/getOrderItemPage.shtml?orderNo=" + orderNo */
+		  /*  window.location.href="${ctx}/order/getOrderItemPage.shtml"; */
+		
 </script>
 </body>
 </html>

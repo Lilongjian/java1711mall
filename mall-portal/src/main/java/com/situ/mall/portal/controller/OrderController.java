@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -167,9 +168,28 @@ public class OrderController {
    }
    
    
-   
    @RequestMapping("/getApyPage")
-   public String getApyPage (){
+   public String getApyPage (Model model){
+	  List<Order> orders = orderService.selectAll();
+	  model.addAttribute("orders", orders);
 	   return "apy";
+   }
+  /* value="/login",method=RequestMethod.POST*/
+  /* @RequestMapping(value="/getOrderItemData",method=RequestMethod.POST)
+   @ResponseBody
+   public ServerResponse getOrderItemData (Integer orderNo,Model model){
+	  System.out.println(orderNo);
+	  List<OrderItem> orderItems = orderItemService.selectByOrderNo(orderNo);
+	  System.out.println(orderItems);
+	  model.addAttribute("orderItems", orderItems);
+	  return ServerResponse.createSuccess("查询成功");
+   }*/
+   @RequestMapping("/getOrderItemPage")
+   public String getOrderItemPage (Long orderNo,Model model){
+	   System.out.println(orderNo);
+	   List<OrderItem> orderItems = orderItemService.selectByOrderNo(orderNo);
+	   System.out.println(orderItems);
+	    model.addAttribute("orderItems", orderItems);
+	   return "orderItems";
    }
 }

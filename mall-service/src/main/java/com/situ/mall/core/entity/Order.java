@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Order implements Serializable {
     private Integer id;
 
@@ -20,17 +24,12 @@ public class Order implements Serializable {
     private Integer postage;
 
     private Integer status;
-
     private Date paymentTime;
-
     private Date sendTime;
-
     private Date endTime;
-
     private Date closeTime;
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createTime;
-
     private Date updateTime;
 
     private static final long serialVersionUID = 1L;
