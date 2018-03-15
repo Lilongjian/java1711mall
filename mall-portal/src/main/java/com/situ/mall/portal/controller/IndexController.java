@@ -28,11 +28,11 @@ public class IndexController {
 		model.addAttribute("categorytwo", categorytwo);
 		return "index";
 	}
-	@RequestMapping("/selectSecondCategory")
+	/*@RequestMapping("/selectSecondCategory")
     @ResponseBody
     public ServerResponse selectSecondCategory(Integer topCategoryId){
 		System.out.println(topCategoryId);
    	 return categoryService.selectSecondCategory(topCategoryId);
-    }
+    }*/
 
 }
