@@ -8,6 +8,6 @@ public interface IOrderService {
 
 	int add(Order order);
 
-	List<Order> selectAll();
+	List<Order> selectAll(Integer userId);
 
 }

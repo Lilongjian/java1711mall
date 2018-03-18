@@ -21,8 +21,8 @@ public class OrderServiceImpl implements IOrderService{
 	}
 
 	@Override
-	public List<Order> selectAll() {
-		return orderMapper.selectAll();
+	public List<Order> selectAll(Integer userId) {
+		return orderMapper.selectAll(userId);
 	}
 
 }

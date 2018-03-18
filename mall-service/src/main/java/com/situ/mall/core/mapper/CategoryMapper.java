@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.situ.mall.common.response.ServerResponse;
 import com.situ.mall.core.entity.Category;
+import com.situ.mall.core.vo.CategoryCountVo;
 
 
 public interface CategoryMapper {
@@ -30,4 +31,6 @@ public interface CategoryMapper {
 	int deleteAll(String[] idsArray);
 
 	List<Category> selectAll();
+
+	List<CategoryCountVo> getCategoryCountAnalysis();
 }

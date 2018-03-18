@@ -124,7 +124,7 @@
 					<tr class="tab-0">
 						<th class="tab-1"><input type="checkbox" name="s_all" class="s_all tr_checkmr" id="checkAll" onclick="checkAll()"><label for="checkAll"> 全选</label></th>
 						<th class="tab-2">订单号</th>
-						<th class="tab-3">用户ID</th>
+						<th class="tab-3">用户名称</th>
 						<th class="tab-4">总金额</th>
 						<th class="tab-5">创建时间</th>
 						<th class="tab-6">订单详情</th>
@@ -151,7 +151,7 @@
 					</div>
 					</th>
 					<th>${orders.orderNo}</th>
-					<th>${orders.userId}</th>
+					<th>${CURRENT_USER.username}</th>
 					<th><span id="cartItemTotalPrice${orders.id}">${orders.payment}</span></th>
 					<th>
 					<fmt:formatDate value="${orders.createTime}" pattern="yyyy-MM-dd" ></fmt:formatDate>

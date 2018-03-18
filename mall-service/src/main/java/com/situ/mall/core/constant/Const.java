@@ -2,7 +2,7 @@ package com.situ.mall.core.constant;
 
 public class Const {
 	public interface Role{
-		int ROLE_ADMIN=0;
+		int ROLE_ADMIN=1;
 		int ROLE_USER =0;
 	}
 	public interface CartChecked{

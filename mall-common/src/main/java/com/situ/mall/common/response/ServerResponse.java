@@ -111,5 +111,5 @@ public class ServerResponse<T> implements Serializable{
 		public static void main(String[] args) {
 			System.out.println(ResponseCode.ERROR.getCode());
 		}
-    
+
 }

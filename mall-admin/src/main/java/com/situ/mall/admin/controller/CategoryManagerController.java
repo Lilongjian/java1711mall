@@ -70,6 +70,15 @@ public class CategoryManagerController {
  		model.addAttribute("category", category);
  		return "category_edit";
  	}
+ 	@RequestMapping("/getCategoryCountAnalysisPage")
+ 	public String getCategoryCountAnalysisPage(){
+ 		return "category_count_analysis";
+ 	}
+ 	@RequestMapping("/getCategoryCountAnalysis")
+ 	@ResponseBody
+ 	public ServerResponse getCategoryCountAnalysis(){
+ 		return categoryService.getCategoryCountAnalysis();
+ 	}
 	 	
 	 
 }

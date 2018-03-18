@@ -74,6 +74,12 @@
                             <span class="nav-label">主题</span>
                         </a>
                     </li>
+                      <li>
+                        <a class="J_menuItem" href="${ctx}/order/getApyPage.action">
+                            <i class="fa fa-home"></i>
+                            <span class="nav-label">订单列表</span>
+                        </a>
+                    </li>
                     <li>
                         <a href="#">
                             <i class="fa fa fa-bar-chart-o"></i>
@@ -82,7 +88,7 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a class="J_menuItem" href="graph_echarts.html">百度ECharts</a>
+                                <a class="J_menuItem" href="${ctx}/category/getCategoryCountAnalysisPage.action">分类统计</a>
                             </li>
                             <li>
                                 <a class="J_menuItem" href="graph_flot.html">Flot</a>

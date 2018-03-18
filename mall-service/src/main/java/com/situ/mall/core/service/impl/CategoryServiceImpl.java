@@ -12,6 +12,7 @@ import com.situ.mall.core.entity.Category;
 import com.situ.mall.core.entity.User;
 import com.situ.mall.core.mapper.CategoryMapper;
 import com.situ.mall.core.service.ICategoryService;
+import com.situ.mall.core.vo.CategoryCountVo;
 
 @Service
 public class CategoryServiceImpl implements ICategoryService{
@@ -99,6 +100,15 @@ public class CategoryServiceImpl implements ICategoryService{
 	@Override
 	public List<Category> selectAll() {
 		return categoryMapper.selectAll();
+	}
+
+	@Override
+	public ServerResponse getCategoryCountAnalysis() {
+		List<CategoryCountVo> list = categoryMapper.getCategoryCountAnalysis();
+		if (list == null || list.size() == 0) {
+			return ServerResponse.createError("查找失败或数据为空");
+		}
+		return ServerResponse.createSuccess("查找成功", list);
 	}
 
 }

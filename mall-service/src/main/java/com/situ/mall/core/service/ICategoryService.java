@@ -27,4 +27,6 @@ public interface ICategoryService {
 
 	List<Category> selectAll();
 
+	ServerResponse getCategoryCountAnalysis();
+
 }

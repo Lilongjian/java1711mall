@@ -169,8 +169,9 @@ public class OrderController {
    
    
    @RequestMapping("/getApyPage")
-   public String getApyPage (Model model){
-	  List<Order> orders = orderService.selectAll();
+   public String getApyPage (Model model,HttpSession session){
+	   User user = (User) session.getAttribute("CURRENT_USER");
+	  List<Order> orders = orderService.selectAll(user.getId());
 	  model.addAttribute("orders", orders);
 	   return "apy";
    }
