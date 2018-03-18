@@ -49,19 +49,15 @@
  		  
  		  table.render({
  		    elem: '#datagrid', //要渲染哪个表格
- 		    url:'${ctx}/product/pageList.action', //异步数据接口
+ 		    url:'${ctx}/order/getOrderList.action', //异步数据接口
  		    cellMinWidth: 50, //列宽自动分配，全局定义常规单元格的最小宽度
  		    cols: [[
               {type:'checkbox'},
- 		      {field:'id', title: 'ID', sort: true},
- 		      {field:'name', title: '名称', sort: true},
- 		      {field:'subtitle', title: '标题', sort: true},
- 		      {field:'price', title: '价格', sort: true},
- 		     {field:'mainImage', title: '图标', templet: '#imgTpl',sort: true},
- 		      {field:'stock', title: '库存', sort: true},
- 		      {field:'status', title: '状态',templet:'#statusTpl', sort: true},
- 		      {field:'createTime', title: '创建时间', sort: true},
- 		      {field:'updateTime', title: '更新时间', sort: true},
+ 		      {field:'id', title: '订单ID', sort: true},
+ 		      {field:'orderNo', title: '订单号', sort: true},
+ 		      {field:'userId', title: '用户Id', sort: true},
+ 		      {field:'payment', title: '订单金额', sort: true},
+ 		     {field:'createTime', title: '创建时间',sort: true},
  		     {fixed: 'right', width : 170, toolbar: '#toolbar'} //这里的toolbar值是模板元素的选择器
  		    ]],
  		    page: true,
@@ -115,7 +111,16 @@
  				    var tr = obj.tr; //获得当前行 tr 的DOM对象
  				   
  				    if(layEvent === 'detail'){ //查看
- 				    	layer.msg("查看：" + data.id);
+ 				    	/* layer.msg("查看：" + data.orderNo); */
+ 				    var index = layer.open({
+ 				    		type:2,
+ 				    		title:'订单详情页',
+ 				    		offset:'50px',
+ 				    		area:['1000px','400px'],
+ 				    		shadeClose:true,
+ 				    		content:'${ctx}/order/getOrderItemPage.action?orderNo='+ data.orderNo
+ 				    	})
+ 				    
  				    } else if(layEvent === 'del'){ //删除
  				    	layer.confirm('真的删除行么', function(index){
  				       		$.ajax({
