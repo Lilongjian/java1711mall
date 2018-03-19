@@ -80,7 +80,7 @@
 		<!---------------logo-------------------->
 		<div class="logo_center">
 			<div class="left">
-				<img src="${ctx}/static/front/img/LOGO.png" />
+				<a href="${ctx}/index.shtml"><img src="${ctx}/static/front/img/LOGO.png" /></a>
 			</div>
 			<div class="center">
 				<input class="logo_search" type="text" />
@@ -107,7 +107,7 @@
 				</ul>
 			</div>
 			<div class="right">
-				<a style="color: #666666;" href="">去购物车结算</a>
+				<a style="color: #666666;" href="${ctx}/cart/getCartPage.shtml">去购物车结算</a>
 				<div class="logo_nav">
 
 				</div>

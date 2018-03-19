@@ -39,6 +39,11 @@ public class UserController {
       }
             return ServerResponse.createError("请登录");
       }
+ @RequestMapping("/loginOut")
+      public String loginOut(HttpSession session){
+	  session.removeAttribute("CURRENT_USER");
+	 return "loginMain";
+ }
 
 
 }

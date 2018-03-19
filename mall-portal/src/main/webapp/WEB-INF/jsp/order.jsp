@@ -86,7 +86,7 @@
 		</div>
 		<div class="fr pc-head-car">
 			<i class="icon-car"></i>
-			<a href="#">我的购物车</a>
+			<a href="${ctx}/cart/getCartPage.shtml">我的购物车</a>
 		</div>
 	</div>
 	<!--  顶部    start-->

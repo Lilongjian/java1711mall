@@ -23,7 +23,10 @@
 					<ul>
 						<li><a class="login" href="login.shtml" target="_blank">
 						<c:if test="${CURRENT_USER.username==null}">请登录</c:if>
-                        <c:if test="${CURRENT_USER.username!=null}">${CURRENT_USER.username}</c:if>
+                        <c:if test="${CURRENT_USER.username!=null}">
+                        ${CURRENT_USER.username}
+                                                &nbsp;<a href="${ctx}/user/loginOut.shtml"><span style="color: red;font-size:3px">退出</span></a>
+                        </c:if>
 						</a></li>
 						<li><a href="register.html" target="_blank">快速注册</a></li>
 						<li><a class="collect" href="">我的收藏</a></li>
@@ -39,7 +42,7 @@
 		<!-----------------------2.logo-------------------->
 		<div class="logo_center">
 			<div class="left">
-				<img class="logo_img" src="${ctx}/static/front/img/LOGO.png" />
+				<a href="${ctx}/index.shtml"><img class="logo_img" src="${ctx}/static/front/img/LOGO.png" /></a>
 			</div>
 			<div class="center">
 				<input class="btn1" type="text" value="安慕希" />
@@ -58,7 +61,7 @@
 			</div>
 			<div class="right">
 				<div class="car">
-					<a class="car_pic" href="cart.html" target="_blank">去购物车结算</a>
+					<a class="car_pic" href="${ctx}/cart/getCartPage.shtml" target="_blank">去购物车结算</a>
 				</div>
 				<div class="narrow"></div>
 			</div>

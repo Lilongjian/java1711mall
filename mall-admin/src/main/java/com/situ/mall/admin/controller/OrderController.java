@@ -34,7 +34,7 @@ public class OrderController {
 	private IOrderItemService orderItemService;
    
    @RequestMapping("/getOrderPage")
-   public String getApyPage (Model model){
+   public String getApyPage (){
 	   return "order";
    }
    @RequestMapping("/getOrderList")
@@ -56,7 +56,7 @@ public class OrderController {
    public String getOrderItemPage (Long orderNo,Model model){
 	   System.out.println(orderNo);
 	   List<OrderItem> orderItems = orderItemService.selectByOrderNo(orderNo);
-	   System.out.println(orderItems);
+	   System.out.println(orderItems); 
 	    model.addAttribute("orderItems", orderItems);
 	   return "orderItems";
    }

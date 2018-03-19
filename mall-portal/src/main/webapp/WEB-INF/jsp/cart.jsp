@@ -49,7 +49,7 @@
 		</div>
 		<div class="logo_center">
 			<div class="left">
-				<img class="logo_img" src="${ctx}/static/front/img/LOGO.png" />
+				<a href="${ctx}/index.shtml"><img class="logo_img" src="${ctx}/static/front/img/LOGO.png" /></a>
 				<span class="car_text">购物车</span>
 			</div>
 			<div class="right">

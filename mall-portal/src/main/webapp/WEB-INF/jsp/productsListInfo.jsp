@@ -40,7 +40,7 @@
 		<!-----------------------2.logo-------------------->
 		<div class="logo_center">
 			<div class="left">
-				<img class="logo_img" src="${ctx}/static/front/img/LOGO.png" />
+				<a href="${ctx}/index.shtml"><img class="logo_img" src="${ctx}/static/front/img/LOGO.png" /></a>
 			</div>
 			<div class="center">
 				<input class="btn1" type="text" value="安慕希" />
@@ -59,7 +59,7 @@
 			</div>
 			<div class="right">
 				<div class="car">
-					<a class="car_pic" href="cart.html" target="_blank">去购物车结算</a>
+					<a class="car_pic" href="${ctx}/cart/getCartPage.shtml" target="_blank">去购物车结算</a>
 				</div>
 				<div class="narrow"></div>
 			</div>
