@@ -29,4 +29,6 @@ public interface ICategoryService {
 
 	ServerResponse getCategoryCountAnalysis();
 
+	List<Category> getCategoryTwo(Integer parentId);
+
 }

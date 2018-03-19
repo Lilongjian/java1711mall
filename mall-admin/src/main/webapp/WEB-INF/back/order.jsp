@@ -116,7 +116,7 @@
  				    		type:2,
  				    		title:'订单详情页',
  				    		offset:'50px',
- 				    		area:['1000px','400px'],
+ 				    		area:['1300px','400px'],
  				    		shadeClose:true,
  				    		content:'${ctx}/order/getOrderItemPage.action?orderNo='+ data.orderNo
  				    	})

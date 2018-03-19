@@ -141,6 +141,7 @@
     <include refid="Base_Column_List"/>
    from category
    <where>
+      and parent_id = 0
       <if test="name != null">
        and name like concat('%',#{name},'%')
       </if>

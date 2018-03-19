@@ -111,4 +111,9 @@ public class CategoryServiceImpl implements ICategoryService{
 		return ServerResponse.createSuccess("查找成功", list);
 	}
 
+	@Override
+	public List<Category> getCategoryTwo(Integer parentId) {
+		return categoryMapper.selectSecondCategory(parentId);
+	}
+
 }

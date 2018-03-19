@@ -79,6 +79,13 @@ public class CategoryManagerController {
  	public ServerResponse getCategoryCountAnalysis(){
  		return categoryService.getCategoryCountAnalysis();
  	}
+ 	@RequestMapping("/getCategoryTwo")
+ 	public String getCategoryTwo(Integer parentId,Model model){
+ 		System.out.println(parentId);
+ 		List<Category> list = categoryService.getCategoryTwo(parentId);
+ 		model.addAttribute("list", list);
+ 		return "categoryTwo";
+ 	}
 	 	
 	 
 }

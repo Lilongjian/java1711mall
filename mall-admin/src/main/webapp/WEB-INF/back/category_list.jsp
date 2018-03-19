@@ -111,7 +111,16 @@
  				    var tr = obj.tr; //获得当前行 tr 的DOM对象
  				   
  				    if(layEvent === 'detail'){ //查看
- 				    	layer.msg("查看：" + data.id);
+ 				    /* 	layer.msg("查看：" + data.id); */
+ 				        var index = layer.open({
+ 				        	type:2,
+ 				        	title:'二级分类',
+ 				        	offset:'50px',
+ 				        	area:['1250px','400px'],
+ 				        	shadeClose:true,
+ 				        	content:'${ctx}/category/getCategoryTwo.action?parentId='+data.id
+ 				        })
+ 				    
  				    } else if(layEvent === 'del'){ //删除
  				    	layer.confirm('真的删除行么', function(index){
  				       		$.ajax({

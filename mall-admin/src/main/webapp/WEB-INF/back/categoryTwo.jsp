@@ -35,12 +35,12 @@
 				<thead>
 					<tr class="tab-0">
 						<!-- <th class="tab-1"><input type="checkbox" name="s_all" class="s_all tr_checkmr" id="s_all_h"><label for=""> 全选</label></th> -->
-						<th class="tab-2">用户ID</th>
-						<th class="tab-3">订单号</th>
-						<th class="tab-4">商品名称</th>
-						<th class="tab-5">商品主图</th>
-						<th class="tab-6">商品单价</th>
-						<th class="tab-6">数量</th>
+						<th class="tab-2">分类ID</th>
+						<th class="tab-3">父ID</th>
+						<th class="tab-4">分类名称</th>
+						<th class="tab-5">状态</th>
+						<th class="tab-6">创建时间</th>
+						<th class="tab-6">更新时间</th>
 						<!-- <th class="tab-7"></th> -->
 					</tr>
 				</thead>
@@ -49,17 +49,18 @@
 						<td colspan="7" style="padding-left:10px; background:#eee url(${ctx}/static/back/img/beijing.jpg)">
 						</td>
 					</tr>
-					<c:forEach items="${orderItems}" var="orderItems">
-					<input type="hidden" name="check"  value="${orderItems.totalPrice}"/>
+					<c:forEach items="${list}" var="category">
+					<input type="hidden" name="check" />
 					<tr>
-					<th>${orderItems.userId}</th>
-					<th>${orderItems.orderNo}</th>
-					<th>${orderItems.productName}</th>
-					<th><img src="/pic/${orderItems.productImage}" width="50px" height="50px"></th>
-					<th>${orderItems.currentUnitPrice}</th>
-					<th>${orderItems.quantity}</th>
+					<th>${category.id}</th>
+					<th>${category.parentId}</th>
+					<th>${category.name}</th>
+					<th>${category.status}</th>
 					<th>
-					<fmt:formatDate value="${orders.createTime}" pattern="yyyy-MM-dd" ></fmt:formatDate>
+					<fmt:formatDate value="${category.createTime}" pattern="yyyy-MM-dd" ></fmt:formatDate>
+					</th>
+					<th>
+					<fmt:formatDate value="${category.updateTime}" pattern="yyyy-MM-dd" ></fmt:formatDate>
 					</th>
 					</tr>
 					</c:forEach>
