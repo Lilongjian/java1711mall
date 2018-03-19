@@ -12,27 +12,17 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
 	<meta name="renderer" content="webkit">
 	<title>登录.云购物商城</title>
-	<!-- <link rel="shortcut icon" type="image/x-icon" href="img/icon/favicon.ico"> -->
+	<link rel="shortcut icon" type="image/x-icon" href="img/icon/favicon.ico">
 	<link rel="stylesheet" type="text/css" href="${ctx}/static/front/css/base.css">
 	<link rel="stylesheet" type="text/css" href="${ctx}/static/front/css/home.css">
+	<style type="text/css">
+	.center{
+	 margin:-80 -800px;
+	}
+	</style>
 </head>
 <body>
-
-<header id="pc-header">
-	<div class="center">
-		<div class="pc-fl-logo">
-		<br>
-			<p>
-				<img src="${ctx}/static/front/img/LOGO.png">
-			</p>
-			<br>
-		</div>
-	</div>
-</header>
-<section>
-	<div class="pc-login-bj">
-		<div class="center clearfix">
-			<div class="fl"></div>
+           <div class="center">
 			<div class="fr pc-login-box">
 				<div class="pc-login-title"><h2>用户登录</h2></div>
 				<form action="" id="login-form">
@@ -57,20 +47,9 @@
 				</form>
 			
 			</div>
-		</div>
-	</div>
-</section>
-
-<footer>
-	<div class="center">
-		<div class="pc-footer-login">
-			<p>关于我们 招聘信息 联系我们 商家入驻 商家后台 商家社区 ©2017 Yungouwu.com 北京云购物网络有限公司</p>
-			<p style="color:#999">营业执照注册号：990106000129004 | 网络文化经营许可证：北网文（2016）0349-219号 | 增值电信业务经营许可证：京2-20110349 | 安全责任书 | 京公网安备 99010602002329号 </p>
-		</div>
-	</div>
-</footer>
+			</div>
 </body>
- <script type="text/javascript">
+      <script type="text/javascript">
       layui.use(['layer'],function(){
       	var layer = layui.layer;
       });
@@ -101,9 +80,7 @@
     	    	data:$("#login-form").serialize(),
     	    	success:function(data){
     	    			if(data.code == util.SUCCESS){
-    	    				/* ${ctx}/order/getOrderPage.shtml","_top */
-    	    			 /*  window.open("${ctx}/index.shtml"); */ /* ,"_blank" */
-    	    			  window.location.href="${ctx}/index.shtml";
+    	    			  window.open("${ctx}/order/getOrderPage.shtml","_top"); /* ,"_blank" */
     	    			 /*  window.location.href="${ctx}/order/getOrderPage.shtml"; */
     	    		}else{
     	    			mylayer.errorMsg(data.msg);
@@ -117,4 +94,5 @@
         		return pattern.test(value);
           	} 
       </script>
+
 </html>

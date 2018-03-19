@@ -22,10 +22,10 @@
 				<div class="right">
 					<ul>
 						<li><a class="login" href="login.shtml" target="_blank">
-						<c:if test="${CURRENT_USER.username==null}">请登录</c:if>
+						<c:if test="${CURRENT_USER.username==null}"><a href="${ctx}/user/loginOut.shtml">请登录</a></c:if>
                         <c:if test="${CURRENT_USER.username!=null}">
                         ${CURRENT_USER.username}
-                                                &nbsp;<a href="${ctx}/user/loginOut.shtml"><span style="color: red;font-size:3px">退出</span></a>
+                                                &nbsp;<a href="${ctx}/user/loginOut.shtml "><span style="color: red;font-size:3px">退出</span></a>
                         </c:if>
 						</a></li>
 						<li><a href="register.html" target="_blank">快速注册</a></li>
@@ -707,7 +707,6 @@
 					  }
 				  });
 			}); */ 
-				  
 		</script>
 	</body>
 

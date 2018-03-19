@@ -42,8 +42,7 @@ public class UserController {
  @RequestMapping("/loginOut")
       public String loginOut(HttpSession session){
 	  session.removeAttribute("CURRENT_USER");
-	 return "loginMain";
+	  return "loginMain";
  }
-
 
 }
